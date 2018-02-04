@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      box-sizing: border-box;
+    }
+
+    section>ul {
+      width: 414px;
+      height: auto;
+      margin: 100px auto;
+    }
+
+    section>ul::after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+
+    section>ul>li {
+      text-align: center;
+      width: 70px;
+      height: 70px;
+      line-height: 70px;
+      border: 1px solid #000;
+      float: left;
+      margin-left: -1px;
+      margin-top: -1px;
+    }
+
+    section>ul>li:first-of-type {
+      background-color: pink;
+    }
+
+    section>ul>li:last-of-type {
+      background-color: cadetblue;
+    }
+
+    section>ul>li:nth-of-type(3) {
+      background-color: yellowgreen;
+    }
+
+    section>ul>li:nth-of-type(5n) {
+      background-color: aquamarine;
+    }
+
+    footer>ul {
+      width: 420px;
+      margin: 100px auto;
+    }
+
+    footer>ul>li {
+      float: left;
+      width: 50px;
+
+      text-align: center;
+    }
+
+    footer>ul>li>a {
+      display: block;
+      float: left;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+    }
+
+    footer>ul>li:not(:last-of-type) {
+      border-right: 1px #ccc solid;
+    }
+  </style>
+</head>
+
+<body>
+
+  <section>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+      <li>8</li>
+      <li>9</li>
+      <li>10</li>
+      <li>11</li>
+      <li>12</li>
+      <li>13</li>
+      <li>14</li>
+      <li>15</li>
+      <li>16</li>
+      <li>17</li>
+      <li>18</li>
+      <li>19</li>
+      <li>20</li>
+      <li>21</li>
+      <li>22</li>
+      <li>23</li>
+      <li>24</li>
+      <li>25</li>
+      <li>26</li>
+      <li>27</li>
+      <li>28</li>
+      <li>29</li>
+      <li>30</li>
+      <li>31</li>
+      <li>32</li>
+      <li>33</li>
+      <li>34</li>
+      <li>35</li>
+      <li>36</li>
+      <li>37</li>
+    </ul>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="">aaa</a>
+      </li>
+      <li>
+        <a href="">aaa</a>
+      </li>
+      <li>
+        <a href="">aaa</a>
+      </li>
+      <li>
+        <a href="">aaa</a>
+      </li>
+      <li>
+        <a href="">aaa</a>
+      </li>
+    </ul>
+  </footer>
+</body>
+
+</html>
