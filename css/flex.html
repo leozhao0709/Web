@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    nav {
+      height: 64px;
+      background-color: pink;
+    }
+
+    nav>ul {
+      display: flex;
+    }
+
+    nav>ul>li {
+      flex: 1;
+    }
+
+    nav>ul>li>a {
+      text-decoration: none;
+      display: block;
+      line-height: 64px;
+      text-align: center;
+    }
+
+    nav>ul>li>a:hover {
+      background-color: #ccc;
+    }
+
+    .layout {
+      width: 600px;
+      height: 700px;
+      border: 1px solid #000;
+      margin: 100px auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .layout>header {
+      background-color: pink;
+      flex: 1;
+    }
+
+    .layout>section {
+      flex: 4;
+      display: flex;
+    }
+
+    .layout>section>aside {
+      background-color: orange;
+      flex: 1;
+    }
+
+    .layout>section>article {
+      background-color: cadetblue;
+      flex: 3;
+    }
+
+    .layout>footer {
+      background-color: black;
+      flex: 1;
+    }
+  </style>
+
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="#message">消息</a>
+      </li>
+      <li>
+        <a href="#contact">通讯录</a>
+      </li>
+      <li>
+        <a href="#discover">发现</a>
+      </li>
+      <li>
+        <a href="#my">我的</a>
+      </li>
+      <li>
+        <a href="#space">空间</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="layout">
+    <header></header>
+    <section>
+      <aside></aside>
+      <article></article>
+    </section>
+    <footer></footer>
+  </div>
+</body>
+
+</html>
