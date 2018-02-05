@@ -21,20 +21,21 @@ form {
   width: 100%;
   max-width: 640px;
   min-width: 320px;
-  c
+  margin: 0 auto;
 }
 ```
 
 ## 3. inline-block element alignment
 
-We can use `text-align` to set up the inline-block element.
+We can use `left: 50%` and `transform: translateX(-50%)` to set up the inline-block element alignment.
 
 ```css
-div {
-  text-align: center;
+.items>.item>a {
+  width: 80px;
+  height: 80px;
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 ```
-
-Note:
-
-- div not alignment, it only align the content in this div.

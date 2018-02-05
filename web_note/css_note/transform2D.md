@@ -1,4 +1,4 @@
-# Transform
+# Transform2D
 
 ## 1. scale
 
@@ -24,7 +24,7 @@
 
 ## 2. translate(x, y)
 
-translate(x, y) 可以改变元素的位置, x, y可为负值
+translate(x, y) 可以改变元素的位置, x, y可为负值. **取值可以为百分比，百分比以自身宽度为参考**.
 
 ```css
 .box .box2{

@@ -1,4 +1,4 @@
-# h5 get element
+# h5 new api
 
 ## 1. querySelector
 

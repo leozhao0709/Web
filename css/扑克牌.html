@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #eee;
+    }
+
+    .box {
+      width: 300px;
+      margin: 150px auto;
+    }
+
+    .box>img {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      -webkit-transition: all 1s;
+      -moz-transition: all 1s;
+      transition: all 1s;
+
+      box-shadow: 1px 1px 3px 1px #333;
+
+      transform-origin: center bottom;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+  </div>
+
+  <script>
+    const pkNumber = 13;
+
+    let imgElements = [];
+    for (let i = 0; i < pkNumber; i++) {
+      const imgElement = document.createElement('img');
+      imgElement.setAttribute('src', './resource/image/pk1.png');
+      imgElement.setAttribute('data-count', i);
+      document.querySelector('.box').appendChild(imgElement);
+      imgElements.push(imgElement);
+    }
+
+    imgElements.forEach((imgElement) => {
+
+      imgElement.addEventListener('mouseover', function (e) {
+        imgElements.forEach((_) => {
+          let i = _.dataset['count'];
+          console.log(i);
+          let deg = (i - Math.trunc(pkNumber / 2)) * 10;
+          _.style.transform = `rotate(${deg}deg)`;
+        })
+      })
+
+      imgElement.addEventListener('mouseout', function (e) {
+        imgElements.forEach((_) => {
+          _.style.transform = null;
+        })
+      })
+    })
+
+
+  </script>
+</body>
+
+</html>
