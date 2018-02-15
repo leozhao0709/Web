@@ -2,6 +2,12 @@
 
 Axios is an Ajax/http library for node.
 
+## 0. import
+
+```ts
+import Axios from 'axios';
+```
+
 ## 1. Post, Get and Delete
 
 - post:
@@ -13,7 +19,7 @@ postDataHandler = () => {
         body: this.state.content,
         author: this.state.author
     };
-    axios.post('/posts', data)
+    Axios.post('/posts', data)
         .then(response => {
             console.log(response);
         });
@@ -23,7 +29,7 @@ postDataHandler = () => {
 - get:
 
 ```js
-axios.get( '/posts' )
+Axios.get( '/posts' )
     .then( response => {
         const posts = response.data.slice(0, 4);
         const updatedPosts = posts.map(post => {
@@ -45,7 +51,7 @@ axios.get( '/posts' )
 
 ```js
 deletePostHandler = () => {
-    axios.delete('/posts/' + this.props.id)
+    Axios.delete('/posts/' + this.props.id)
         .then(response => {
             console.log(response);
         });
@@ -57,9 +63,9 @@ deletePostHandler = () => {
 Set up these things in **index.js**
 
 ```js
-axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
-axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN';
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+Axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
+Axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN';
+Axios.defaults.headers.post['Content-Type'] = 'application/json';
 ```
 
 ## 3. Interceptors
@@ -67,7 +73,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 We can do some global things for request and response using Intercetors.
 
 ```js
-axios.interceptors.request.use(request => {
+Axios.interceptors.request.use(request => {
     console.log(request);
     // Edit request config
     return request;
@@ -76,7 +82,7 @@ axios.interceptors.request.use(request => {
     return Promise.reject(error);
 });
 
-axios.interceptors.response.use(response => {
+Axios.interceptors.response.use(response => {
     console.log(response);
     // Edit request config
     return response;
@@ -97,9 +103,9 @@ Note:
 We can define **our own Axois** Instance. Create a new file called axois.js, then put these contents in that file.
 
 ```js
-import axios from 'axios';
+import Axios from 'axios';
 
-const instance = axios.create({
+const instance = Axios.create({
     baseURL: 'https://jsonplaceholder.typicode.com'
 });
 
