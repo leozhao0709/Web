@@ -4,21 +4,46 @@
 
 ```tsx
 import * as React from 'react';
-import { AxiosInstance } from 'axios';
+import { AxiosInstance, AxiosError } from 'axios';
+import Modal from '../../components/UI/Modal/Modal';
 
-const WithErrorHandler = <P extends {}>(WrappedComponent: React.ComponentType<P>, AxionsInstance: AxiosInstance) => {
+interface WithErrorHandlerState {
+    error: AxiosError | null;
+}
 
-    return class extends React.Component<P, {}> {
+const WithErrorHandler =
+    <P extends {}>(WrappedComponent: React.ComponentType<P>, AxionsInstance: AxiosInstance) => {
 
-        render() {
-            return (
-                <>
-                    <WrappedComponent {...this.props} />
-                </>
-            );
-        }
+        return class extends React.Component<P, WithErrorHandlerState> {
+
+            state: WithErrorHandlerState = {
+                error: null,
+            };
+
+            componentWillMount() {
+                AxionsInstance.interceptors.response.use(res => res, err => {
+                    this.setState({ error: err });
+                });
+            }
+
+            errorConfirmedHandler = () => {
+                this.setState({ error: null });
+            }
+
+            render() {
+
+                return (
+                    <>
+                        <Modal modalClosed={this.errorConfirmedHandler} show={this.state.error !== null} >
+                            {this.state.error && this.state.error.message}
+                        </Modal>
+                        <WrappedComponent {...this.props} />
+                    </>
+                );
+            }
+        };
     };
-};
 
 export default WithErrorHandler;
+
 ```
