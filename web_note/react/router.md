@@ -1,5 +1,19 @@
 # react-router
 
+## 0. tsx props type
+
+```tsx
+// for no other customized parameter passed in route
+interface HomeProps extends RouteComponentProps<{}> {
+  // Add your regular properties here
+}
+
+// for other customized parameter passed in route
+interface HomeProps extends RouteComponentProps<{title: string}> {
+  // Add your regular properties here
+}
+```
+
 ## 1. install
 
 1. `npm install --save react-router-dom`
@@ -28,12 +42,19 @@ Using `Route` to define the small route.
 <Route path="/" exact render={() => <h1>Home</h1>} />
 <Route path="/" render={() => <h1>Home 2</h1>} />
 
-// for component
-<Route path="/posts" component={Posts} />
+<Switch>
+    // for component
+    <Route path="/posts" component={Posts} />
+    // send params in url
+    <Route path="/:id" component={FullPost} />
+    <Redirect from="/" to="/posts" />
 
-// send params in url
-<Route path="/:id" component={FullPost} />
+    // No other path match, then goes to this page
+    <Route render={() => <h1>Not found</h1>}/>
+</Switch>
 ```
+
+Using `<Switch>` for the `<Route>`, then only the first `<Route>` will be matched.
 
 ## 3. use Link/NavLink instead of an `a` link
 
@@ -166,3 +187,22 @@ export default withRouter(post);
 By default, if you just enter `<Link to="/some-path">`  or `<Link to="some-path">` , that's an absolute path.
 
 If you want to use relative path, then use `<Link to={props.match.url + '/new'}>`.
+
+## 7. Navigate programmatically
+
+Using `this.props.history.push` or `this.props.history.replace` to change route.
+
+```jsx
+postSelectedHandler = ( id ) => {
+    // this.props.history.push({pathname: '/posts/' + id});
+    this.props.history.replace( '/posts/' + id );
+}
+```
+
+## 8. Redirect
+
+Using `Redirect` to redirect an url.
+
+```jsx
+<Redirect from="/" to="/posts" />
+```
