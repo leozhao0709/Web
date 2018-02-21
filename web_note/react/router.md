@@ -16,7 +16,7 @@ interface HomeProps extends RouteComponentProps<{title: string}> {
 
 ## 1. install
 
-1. `npm install --save react-router-dom`
+1. `npm install --save react-router-dom`, `npm install --save-dev @types/react-router-dom`
 
 2. Then in `App.js`, Wrap the jsx in `BrowserRouter`
 
@@ -26,7 +26,7 @@ interface HomeProps extends RouteComponentProps<{title: string}> {
             return (
                 <BrowserRouter>
                     <div className="App">
-                    <Blog />
+                        Blog />
                     </div>
                 </BrowserRouter>
             );
@@ -190,7 +190,7 @@ If you want to use relative path, then use `<Link to={props.match.url + '/new'}>
 
 ## 7. Navigate programmatically
 
-Using `this.props.history.push` or `this.props.history.replace` to change route.
+Using `this.props.history.push` or `this.props.history.replace` to change route. Or using `this.props.history.goBack()` to go to previous page.
 
 ```jsx
 postSelectedHandler = ( id ) => {
