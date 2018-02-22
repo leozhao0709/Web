@@ -49,6 +49,14 @@ Using `Route` to define the small route.
     <Route path="/:id" component={FullPost} />
     <Redirect from="/" to="/posts" />
 
+    // pass pros for a route component
+    <Route
+        path={this.props.match.url + '/contact-data'}
+        render={(props) => (<ContactData ingredients={this.state.ingredients}
+        {...props}
+        />)}
+    />
+
     // No other path match, then goes to this page
     <Route render={() => <h1>Not found</h1>}/>
 </Switch>
@@ -75,7 +83,7 @@ Using `Link` to work as an `a` link. **But for css style, please still use `a` l
 </header>
 ```
 
-If we want to receive `active` class for an `a` link, then please use `NavLink`. Note use `exact` to an exact link.
+If we want to receive `active` class for an `a` link, then please use `NavLink`. Note use `exact` to an exact link. Also to assign an active css, please use `activeClassName` or `activeStyle`
 
 ```jsx
 <header>

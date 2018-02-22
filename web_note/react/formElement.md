@@ -57,3 +57,34 @@
 - event.target.value
 
   If we want to use `event.target.value` in typescript react, we should use `e.currentTarget.value`
+
+## 2. FormEvent
+
+```jsx
+private handleAddOption = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const option = (e.currentTarget.elements as any).option.value.trim();
+    const error = this.props.handleAddOption(option);
+    this.setState(() => {
+      return {
+        error
+      };
+    });
+
+    if (!error) {
+      (e.currentTarget.elements as any).option.value = '';
+    }
+  }
+
+render() {
+    return (
+      <div>
+        {this.state.error && <p className='add-option-error'>{this.state.error}</p>}
+        <form onSubmit={this.handleAddOption} className='add-option'>
+          <input type='text' name='option' className='add-option__input' />
+          <button className='button'>Add Option</button>
+        </form>
+      </div>
+    );
+  }
+```
