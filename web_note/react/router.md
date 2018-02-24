@@ -1,20 +1,6 @@
 # react-router
 
-## 0. tsx props type
-
-```tsx
-// for no other customized parameter passed in route
-interface HomeProps extends RouteComponentProps<{}> {
-  // Add your regular properties here
-}
-
-// for other customized parameter passed in route
-interface HomeProps extends RouteComponentProps<{title: string}> {
-  // Add your regular properties here
-}
-```
-
-## 1. install
+## 0. install
 
 1. `npm install --save react-router-dom`, `npm install --save-dev @types/react-router-dom`
 
@@ -33,6 +19,20 @@ interface HomeProps extends RouteComponentProps<{title: string}> {
         }
     }
     ```
+
+## 1. tsx props type
+
+```tsx
+// for no other customized parameter passed in route
+interface HomeProps extends RouteComponentProps<{}> {
+  // Add your regular properties here
+}
+
+// for other customized parameter passed in route
+interface HomeProps extends RouteComponentProps<{title: string}> {
+  // Add your regular properties here
+}
+```
 
 ## 2. Define Route
 
