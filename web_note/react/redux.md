@@ -9,7 +9,6 @@
 Create `src/store/actions/**/index.tsx` folder. And add your actions here:
 
 ```tsx
-import { Dispatch } from 'redux';
 export enum CounterActionType {
     Inc = 'inc',
     Dec = 'dec',
@@ -22,57 +21,32 @@ export interface CounterAction {
     val?: number;
 }
 
-export const increment = (): CounterAction => {
-    return {
-        type: CounterActionType.Inc
-    };
-};
+export const CounterActions = {
+    increment: (): CounterAction => {
+        return {
+            type: CounterActionType.Inc
+        };
+    },
 
-export const decrement = (): CounterAction => {
-    return {
-        type: CounterActionType.Dec
-    };
-};
+    decrement: (): CounterAction => {
+        return {
+            type: CounterActionType.Dec
+        };
+    },
 
-export const add = (val: number): CounterAction => {
-    return {
-        type: CounterActionType.Add,
-        val: val,
-    };
-};
+    add: (val: number): CounterAction => {
+        return {
+            type: CounterActionType.Add,
+            val: val,
+        };
+    },
 
-export const sub = (val: number): CounterAction => {
-    return {
-        type: CounterActionType.Sub,
-        val: val,
-    };
-};
-
-export enum CounterResultActionType {
-    STORE_RESULT = 'STORE_RESULT',
-    DELETE_RESULT = 'DELETE_RESULT',
-}
-
-export interface CounterResultAction {
-    type: CounterResultActionType;
-    result?: number;
-    id?: Date;
-}
-
-export const saveResult = (res: number): CounterResultAction => {
-    return {
-        type: CounterResultActionType.STORE_RESULT,
-        result: res,
-    };
-};
-
-export const storeResult = (res: number) => {
-    return (dispatch: Dispatch) => {
-        setTimeout(() => {
-            dispatch(saveResult(res));
-            // tslint:disable-next-line:align
-        }, 2000);
-    };
+    sub: (val: number): CounterAction => {
+        return {
+            type: CounterActionType.Sub,
+            val: val,
+        };
+    }
 };
 ```
 
@@ -81,7 +55,7 @@ export const storeResult = (res: number) => {
 Create `src/store/reducers/**/**.tsx` folder. And add your actions here:
 
 ```tsx
-import { CounterAction, CounterActionType } from '../../actions/Counter/index';
+import { CounterAction, CounterActionType } from '../../actions/Counter/counter';
 
 export interface CounterState {
     counter: number;
@@ -123,14 +97,14 @@ export default CounterReducer;
 
 ## 3. Connect reducer with React
 
-in `src/store` folder, create `index.tsx` and create store in this file:
+in `src/store` folder, create `Store.tsx` and create store in this file:
 
 ```tsx
-import { createStore, combineReducers } from 'redux';
-import CounterReducer from './reducers/counter';
-import CounterResultReducer from './reducers/result';
-import { CounterState } from './reducers/counter';
-import { CounterResultState } from './reducers/result';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import CounterReducer, { CounterState } from './reducers/Counter/counter';
+import CounterResultReducer, { CounterResultState } from './reducers/Counter/result';
+import createSagaMiddleware from 'redux-saga';
+import { watchCounterResult } from './saga/index';
 
 export interface StoreState {
     ctr: CounterState;
@@ -142,7 +116,11 @@ const rootReducer = combineReducers({
     res: CounterResultReducer,
 });
 
-const Store = createStore(rootReducer);
+const sagaMiddleware = createSagaMiddleware();
+
+const Store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(watchCounterResult);
 
 export default Store;
 ```
@@ -159,7 +137,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 ReactDOM.render(
-  <Provider store={store} >
+  <Provider store={Store} >
     <App />
   </Provider>,
   document.getElementById('root') as HTMLElement
@@ -181,18 +159,18 @@ const mapStateToProps = (state: StoreState): CounterStateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): CounterDispatchProps => {
     return {
-        onIncCounter: () => dispatch(increment()),
-        onDecCounter: () => dispatch(decrement()),
-        onAddCounter: (val) => dispatch(add(val)),
-        onSubCounter: (val) => dispatch(sub(val)),
-        onStoreResult: (result) => dispatch(storeResult(result))
+        onIncCounter: () => dispatch(CounterActions.increment()),
+        onDecCounter: () => dispatch(CounterActions.decrement()),
+        onAddCounter: (val) => dispatch(CounterActions.add(val)),
+        onSubCounter: (val) => dispatch(CounterActions.sub(val)),
+        onStoreResult: (result) => dispatch(CounterResultActions.storeResult(result))
     };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 ```
 
-## 5. use redux-thunk for async propcess
+## 5. use redux-thunk for async propcess (optional, I prefer the redux-saga)
 
 **Note, current version of redux-thunk had a types error withe redux v4. Please use this to replace the default types file:**
 
