@@ -7,3 +7,11 @@
 - Rule options: `["always", "never"]`
 
 - Default is set to `always`
+
+- I prefer set it to
+
+    ```json
+    "jsx-boolean-value": [
+                "never"
+            ],
+    ```
