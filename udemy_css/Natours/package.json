@@ -4,11 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npm-run-all -p watch-css start-server",
+    "start-server": "live-server",
+    "build-css": "node-sass-chokidar scss/ -o css/",
+    "watch-css": "npm run build-css && node-sass-chokidar scss/ -o css/ --watch --recursive",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
+    "node-sass-chokidar": "0.0.3",
     "live-server": "^1.2.0"
   }
 }

@@ -1,0 +1,59 @@
+.btn {
+    text-transform: uppercase;
+    padding: 1.5rem 4rem;
+    cursor: pointer;
+    border-radius: 10rem;
+    outline: none;
+    font-size: 1.6rem;
+    font-family: inherit;
+    line-height: inherit;
+    border: none;
+    position: relative;
+
+    &::after {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        border-radius: 10rem;
+        transition: all 0.2s;
+    }
+
+    &:hover {
+        transform: translateY(-0.3rem);
+        box-shadow: 0 1rem 2rem rgba($color-black, 0.2);
+
+        &::after {
+            transform: scaleX(1.4) scaleY(1.6);
+            opacity: 0;
+        }
+    }
+
+    &:active {
+        transform: translateY(-0.1rem);
+        box-shadow: 0 0.5rem 1rem rgba($color-black, 0.2);
+
+        &::after {
+            opacity: 0;
+            transform: scale(1);
+        }
+    }
+
+    &--white {
+        background-color: $color-white;
+        color: $color-grey-dark;
+
+        &::after {
+            background-color: $color-white;
+        }
+    }
+
+    &--animated {
+        animation: moveInBottom .5s ease-out .75s;
+        animation-fill-mode: backwards;
+    }
+}
