@@ -67,6 +67,17 @@ background-size设置背景图片的尺寸, 可以设置具体数值, 也可以�
 - `padding-box`裁切内边距以内为背景区域
 - `content-box`裁切内容区做为背景区域
 
+The following code will apply a linear-graid for the inner text.
+
+```css
+.box {
+  background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+```
+
 ## 8. multiple background image
 
 以逗号分隔可以设置多背景，可用于自适应局
