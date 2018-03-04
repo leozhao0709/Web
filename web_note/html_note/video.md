@@ -11,6 +11,7 @@ Note:
 - `autoplay` 自动播放
 - `controls` 是否显示默认播放控件
 - `loop` 循环播放
+- `mute` 无声
 - `preload` 预加载，同时设置了autoplay，此属性将失效
 - `width` 设置播放窗口宽度
 - `height` 设置播放窗口的高度
