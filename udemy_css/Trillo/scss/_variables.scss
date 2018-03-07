@@ -14,3 +14,6 @@ $color-black: #000;
 
 // SHADOW
 $shadow-dark: 0 2rem 6rem rgba($color: $color-black, $alpha: 0.3);
+$shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+
+$line: 1px solid $color-grey-light-2;
