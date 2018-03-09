@@ -1,0 +1,20 @@
+{
+  "name": "nexter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm-run-all -p watch-css start-server",
+    "start-server": "live-server --browser=firefox",
+    "build-css": "node-sass-chokidar scss/ -o css/",
+    "watch-css": "npm run build-css && node-sass-chokidar scss/ -o css/ --watch --recursive",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.0",
+    "node-sass-chokidar": "0.0.3",
+    "npm-run-all": "^4.1.2"
+  }
+}
