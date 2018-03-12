@@ -6,9 +6,13 @@ if ('serviceWorker' in navigator) {
         .then(function () {
             console.log(`service worker registered`);
         })
+        .catch(function (err) {
+            console.log(err);
+        })
         ;
 }
 
+// in app.js, prevent default banner showing time
 window.addEventListener('beforeinstallprompt', function (event) {
     console.log(`before install propmpt fired`);
     event.preventDefault();
