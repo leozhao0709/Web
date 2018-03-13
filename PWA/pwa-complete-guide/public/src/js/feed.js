@@ -54,7 +54,7 @@ function createCard() {
   sharedMomentsArea.appendChild(cardWrapper);
 }
 
-fetch('https://httpbin.org/get')
+fetch('https://pwagram-e46b3.firebaseio.com/posts.json')
   .then(function (res) {
     return res.json();
   })

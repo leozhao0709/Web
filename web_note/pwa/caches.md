@@ -1,3 +1,8 @@
+# Caches
+
+## 1. Caches file
+
+```js
 var CACHE_DYNAMIC_NAME = 'dynamic-v1';
 var CACHE_STATIC_NAME = 'static-v1';
 
@@ -50,7 +55,6 @@ self.addEventListener('fetch', function (event) {
                 } else {
                     return fetch(event.request)
                         .then(function (res) {
-                            // Dynamic caches
                             return caches.open(CACHE_DYNAMIC_NAME)
                                 .then(function (cache) {
                                     cache.put(event.request.url, res.clone())
@@ -64,3 +68,4 @@ self.addEventListener('fetch', function (event) {
             })
     );
 });
+```
