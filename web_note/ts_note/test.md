@@ -2,9 +2,9 @@
 
 ## 1. Test npm library
 
-Check `npm install --save-dev jest`
+Check `npm install --save-dev ts-node mocha @types/mocha chai @types/chai `
 
-Then change the `package.json` and change the `npm test` cmd to `jest **/*.test.js`.
+Then change the `package.json` and change the `npm test` cmd to `mocha -r ts-node/register src/**/*.test.ts`.
 
 ## 2. example
 
@@ -12,9 +12,9 @@ Then change the `package.json` and change the `npm test` cmd to `jest **/*.test.
 
 ```ts
 describe('Test the Add', () => {
-    test('adds 1 + 2 to equal 3 in Typescript', () => {
+    it('should adds 1 + 2 to equal 3 in Typescript', () => {
         const sum = require('../sum.ts');
-        expect(sum(1, 2)).toBe(3);
+        expect(sum(1, 2)).equal(3);
     });
 })
 ```
@@ -25,31 +25,37 @@ describe('Test the Add', () => {
 
 // promise way remember return !
 describe('Test the fetch data', () => {
-    test('the data is peanut butter', () => {
-        expect.assertions(1);
-        return expect(fetchData()).resolves.toBe('peanut butter');
+    it('should that the data is peanut butter', () => {
+        return fetchData
+            .then((result) => {
+                expect(result).equal('peanut butter')
+            });
     });
 })
 
 describe('Test the fetch data error', () => {
-    test('the fetch fails with an error', () => {
-        expect.assertions(1);
+    it('should fetch fails with an error', () => {
         return expect(fetchData()).rejects.toMatch('error');
+
+        return fetchData
+            .catch((err) => {
+                expect(err).to.be.an('error');
+            });
     });
 })
 
 // this is just another syntax surgar
 describe('Test the fetch data', () => {
-    test('the data is peanut butter', async () => {
-        expect.assertions(1);
-        await expect(fetchData()).resolves.toBe('peanut butter');
+    it('should that the data is peanut butter', async () => {
+        const result = await fetchData();
+        expect(result).to.equal('peanut butter');
     });
 })
 
 describe('Test the fetch data error', () => {
-    test('the fetch fails with an error', async () => {
-        expect.assertions(1);
-        await expect(fetchData()).rejects.toMatch('error');
+    it('should fetch fails with an error', async () => {
+        const error = await fetchData();
+        expect(error).to.be.an('error');
     });
 })
 ```
