@@ -24,38 +24,42 @@ describe('Test the Add', () => {
 ```ts
 
 // promise way remember return !
-describe('Test the fetch data', () => {
-    it('should that the data is peanut butter', () => {
-        return fetchData
-            .then((result) => {
-                expect(result).equal('peanut butter')
-            });
+describe('Post /todos', () => {
+    it('should create a new todo', () => {
+        const text = 'Test todo text';
+
+        return request
+            .post('/todos')
+            .send({ text })
+            .expect(200)
+            .then((res) => {
+                expect(res.body.text).to.equal(text);
+            })
+            ;
+    });
+
+    it('should not create a todo with invalid data', () => {
+        return request
+            .post('/todos')
+            .send({})
+            .expect(404)
+            ;
     });
 })
 
-describe('Test the fetch data error', () => {
-    it('should fetch fails with an error', () => {
-        return expect(fetchData()).rejects.toMatch('error');
-
-        return fetchData
-            .catch((err) => {
-                expect(err).to.be.an('error');
-            });
+// this is just another syntax surgar using async and await
+describe('Post /todos', () => {
+    it('should create a new todo', async () => {
+        const text = 'Test todo text';
+        const res = await request.post('/todos').send({ text }).expect(200);
+        expect(res.body.text).eqls(text );
     });
-})
 
-// this is just another syntax surgar
-describe('Test the fetch data', () => {
-    it('should that the data is peanut butter', async () => {
-        const result = await fetchData();
-        expect(result).to.equal('peanut butter');
-    });
-})
+    it('should not create a todo with invalid data', async () => {
+        await request.post('/todos').send({}).expect(400);
 
-describe('Test the fetch data error', () => {
-    it('should fetch fails with an error', async () => {
-        const error = await fetchData();
-        expect(error).to.be.an('error');
+        const todos = await Todo.find();
+        expect(todos.length).eq(5);
     });
 })
 ```
