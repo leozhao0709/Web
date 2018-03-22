@@ -57,3 +57,36 @@ otherTodo.save()
         console.log(err);
     });
 ```
+
+## 4. find
+
+```ts
+import Todo from '../models/Todo';
+import { ObjectID } from 'mongodb';
+
+const id = '5ab32f40dafe069d398e065aaa';
+
+// Note if want to check id is valid, please use this ObjectId.isValid
+if (!ObjectID.isValid(id)) {
+    console.log(`ID not valid`);
+}
+
+Todo.find({
+    _id: id
+}).then(todos => {
+    console.log('Todos ', todos);
+});
+
+Todo.findOne({
+    _id: id
+}).then(todo => {
+    console.log('Todo ', todo);
+});
+
+Todo.findById(id).then(todo => {
+    console.log(todo);
+}).catch(e => {
+    console.log(e);
+});
+
+```

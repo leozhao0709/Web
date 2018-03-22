@@ -23,6 +23,21 @@ describe('Test the Add', () => {
 
 ```ts
 
+const todos = [
+    {
+        text: 'First test todo'
+    },
+    {
+        text: 'Second test todo'
+    }
+];
+
+beforeEach(() => {
+    return Todo.remove({}).then(() => {
+        return Todo.insertMany(todos);
+    });
+});
+
 // promise way remember return !
 describe('Post /todos', () => {
     it('should create a new todo', () => {

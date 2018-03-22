@@ -3,10 +3,10 @@
 ## 1. usage
 
 ```ts
-const fast = (target, name, descriptor) => {
+const fast = (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
     console.log(target);
     console.log('---------');
-    console.log(name);
+    console.log(propertyKey);
     console.log('---------');
     console.log(descriptor);
     console.log('---------');
@@ -16,7 +16,6 @@ const fast = (target, name, descriptor) => {
         run();
         console.log(`speed ${this.speed}`);
     };
-    return descriptor;
 }
 
 class Rabbit {
