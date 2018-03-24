@@ -109,3 +109,17 @@ Todo.findByIdAndRemove('57c4610dbb35fcbf6fda1154').then((todo) => {
   console.log(todo);
 });
 ```
+
+## 6. update
+
+```ts
+Todo.findByIdAndUpdate(id, { $set: { text, completed, completedAt } }, { new: true })
+        .then(todo => {
+            res.send(todo);
+        })
+        .catch(err => {
+            // tslint:disable-next-line:no-console
+            console.log(err);
+            res.status(404).send();
+        });
+```
