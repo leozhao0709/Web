@@ -2,7 +2,7 @@
 
 ## 0. install
 
-`npm install --save mongoose`, `npm install --save-dev @types/mongoose`
+`npm install --save mongoose validator`, `npm install --save-dev @types/mongoose @types/validator`
 
 ## 1. connect
 
@@ -16,28 +16,37 @@ mongoose.connect(`${serverUrl}${dbName}`);
 ## 2. define schema
 
 ```ts
-import * as mongoose from 'mongoose';
+import mongoose from '../db/mongoose';
 
-const todoSchema = new mongoose.Schema({
-    text: {
+const userSchema = new mongoose.Schema({
+    email: {
         type: String,
         required: true,
+        trim: true,
         minlength: 1,
-        trim: true
+        validate: {
+            validator: validator.isEmail,
+            message: '{Value} is not a valid email'
+        }
     },
-    completed: {
-        type: Boolean,
-        default: false
+    password: {
+        type: String,
+        required: [true, 'password is required'],
+        minlength: 6
     },
-    completedAt: {
-        type: Number,
-        default: null
-    }
+    tokens: [{
+        access: {
+            type: String,
+            required: true
+        },
+        token: {
+            type: String,
+            required: true
+        }
+    }]
 });
 
-const TodoModel = mongoose.model('Todo', todoSchema);
-
-export default TodoModel;
+export const User = mongoose.model('User', userSchema);
 ```
 
 ## 3. save
