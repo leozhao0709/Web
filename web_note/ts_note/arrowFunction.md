@@ -1,5 +1,9 @@
 # Arrow function
 
+## 0. Note
+
+- Arrow function won't bind `this`.
+
 ## 1. legacy arrow function tricky
 
 ```ts

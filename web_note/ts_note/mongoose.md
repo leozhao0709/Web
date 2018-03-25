@@ -17,6 +17,22 @@ mongoose.connect(`${serverUrl}${dbName}`);
 
 ```ts
 import mongoose from '../db/mongoose';
+import * as validator from 'validator';
+import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcryptjs';
+import { environment } from '../environment/environment';
+
+export interface IUser extends mongoose.Document {
+    _id: string;
+    email: string;
+    password: string;
+    tokens: [{ _id: string, access: string, token: string }];
+    generateAuthToken: () => Promise<string>;
+}
+
+export interface IUserModel extends mongoose.Model<IUser> {
+    findByToken: (token: string) => Promise<any>;
+}
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -24,6 +40,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
         minlength: 1,
+        unique: true,
         validate: {
             validator: validator.isEmail,
             message: '{Value} is not a valid email'
@@ -46,58 +63,61 @@ const userSchema = new mongoose.Schema({
     }]
 });
 
-export const User = mongoose.model('User', userSchema);
-```
-
-## 3. save
-
-```ts
-const otherTodo = new TodoModel({
-    text: 'otherTodo'
+userSchema.pre('save', function (this: IUser, next: mongoose.HookNextFunction) {
+    if (this.isModified('password')) {
+        bcrypt.genSalt(10)
+            .then(salt => {
+                return bcrypt.hash(this.password, salt);
+            })
+            .then(hash => {
+                this.password = hash;
+                next();
+            })
+            .catch(err => {
+                return Promise.reject(err);
+            });
+    } else {
+        next();
+    }
 });
 
-otherTodo.save()
-    .then(res => {
-        // tslint:disable-next-line:no-console
-        console.log(res);
-    })
-    .catch(err => {
-        // tslint:disable-next-line:no-console
-        console.log(err);
+userSchema.methods.toJSON = function () {
+    const { _id, email } = this;
+
+    return { _id, email };
+};
+
+userSchema.methods.generateAuthToken = function () {
+    const user = this;
+    const access = 'auth';
+    const token = jwt.sign({ _id: user._id, access }, environment.AUTH_SECRET);
+    user.tokens = [...user.tokens, { access, token }];
+
+    return this.save().then(() => {
+        return token;
+    }).catch(err => {
+        return Promise.reject(err);
     });
-```
+};
 
-## 4. find
+userSchema.statics.findByToken = function (token: string) {
+    let decode;
+    try {
+        decode = jwt.verify(token, environment.AUTH_SECRET);
+    } catch (error) {
+        return Promise.reject(error);
+    }
 
-```ts
-import Todo from '../models/Todo';
-import { ObjectID } from 'mongodb';
+    const { _id, access } = decode as any;
 
-const id = '5ab32f40dafe069d398e065aaa';
+    return this.findOne({
+        _id,
+        'tokens.token': token,
+        'tokens.access': access
+    });
+};
 
-// Note if want to check id is valid, please use this ObjectId.isValid
-if (!ObjectID.isValid(id)) {
-    console.log(`ID not valid`);
-}
-
-Todo.find({
-    _id: id
-}).then(todos => {
-    console.log('Todos ', todos);
-});
-
-Todo.findOne({
-    _id: id
-}).then(todo => {
-    console.log('Todo ', todo);
-});
-
-Todo.findById(id).then(todo => {
-    console.log(todo);
-}).catch(e => {
-    console.log(e);
-});
-
+export const User = mongoose.model<IUser, IUserModel>('User', userSchema);
 ```
 
 ## 5. remove
