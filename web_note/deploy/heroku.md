@@ -14,3 +14,7 @@ using `heroku config` can see any config for your project. For example, we can g
 ## 2. heroku domains
 
 using `heroku domains` can show your heroku domain url.
+
+## 3. heroku upload json file as env
+
+using `heroku config:set FOO="$(< /my/file.json)"` to send a json file to FOO variable.
