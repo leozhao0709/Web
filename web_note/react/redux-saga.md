@@ -8,7 +8,7 @@ Then in saga, do any async process, after finish doing the async process, then p
 
 ## 0. install
 
-`npm install --save redux=saga`
+`npm install --save redux-saga`
 
 ## 1. add saga for your store
 
