@@ -43,13 +43,13 @@ Using `Route` to define the small route.
 <Route path="/" render={() => <h1>Home 2</h1>} />
 
 <Switch>
-    // for component
-    <Route path="/posts" component={Posts} />
-    // send params in url
-    <Route path="/:id" component={FullPost} />
+    {/* for component */}
+    <Route exact path="/posts" component={Posts} />
+    {/* send params in url */}
+    <Route exact path="/:id" component={FullPost} />
     <Redirect from="/" to="/posts" />
 
-    // pass pros for a route component
+    {/* pass pros for a route component */}
     <Route
         path={this.props.match.url + '/contact-data'}
         render={(props) => (<ContactData ingredients={this.state.ingredients}
@@ -57,8 +57,10 @@ Using `Route` to define the small route.
         />)}
     />
 
-    // No other path match, then goes to this page
+    {/* No other path match, then goes to this page */}
     <Route render={() => <h1>Not found</h1>}/>
+    {/* we can also redirect */}
+    <Redirect to="/" />
 </Switch>
 ```
 
