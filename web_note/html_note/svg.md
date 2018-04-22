@@ -237,3 +237,14 @@ Note:
 - We can use symbol to create a symbol and we define an id for this symbol, then using `<use></use>` to call this symbol.
 
 - If we define styles in inner symbol, then the style will **not** work. So when using a symbol, don't do any styles in inner component.
+
+## 7. use sprite svg example
+
+```html
+<div class="user-nav__icon-box">
+    <svg class="user-nav__icon">
+        <use xlink:href="img/sprite.svg#icon-bookmark" />
+    </svg>
+    <span class="user-nav__notification">7</span>
+</div>
+```
