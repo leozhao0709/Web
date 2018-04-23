@@ -6,7 +6,6 @@
 interface PersonProp {
   name: string;
   age: number;
-  children?: ReactNode;
 }
 
 const Person = (props: PersonProp) => {
@@ -22,3 +21,36 @@ export default Person;
 ```
 
 Note: We can use `props.children` to insert the parent innerHTML to child component.
+
+## 2. create reusable component
+
+Using the `React.HtmlHTMLAttributes<{}>` to do this reusable component
+
+```tsx
+import * as React from 'react';
+import * as styles from './Button.css';
+
+interface ButtonProps extends React.HtmlHTMLAttributes<{}> {
+    text?: string;
+    onClick: () => void;
+}
+
+const Button: React.SFC<ButtonProps> = (props: ButtonProps) => {
+
+    return (
+        <button
+            className={styles.button}
+            onClick={props.onClick}
+            {...props}
+        >
+            {props.text}
+        </button>
+    );
+};
+
+Button.defaultProps = {
+    text: 'Button',
+};
+
+export default Button;
+```
