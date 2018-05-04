@@ -82,7 +82,9 @@ export default Basic;
 
 ## 2. Woring with component example
 
-Note: when using customized component, the component props should extends from `FieldProps`
+Note: when using customized component, the component props should extends from `FieldProps`.
+
+be careful with fieldArray name, note there is a dot before index here. Example: `${props.name}.${index}`
 
 ```tsx
 import * as React from 'react';
@@ -113,8 +115,53 @@ export const SurveyField: React.SFC<SurveyFieldProps> = ({ field, form: { touche
         </div>
     );
 };
+```
 
-SurveyField.defaultProps = {};
+```tsx
+import * as React from 'react';
+import { ArrayHelpers, FormikProps, Field } from 'formik';
+import { AddButton, MinusButton } from 'my-react-story';
+import * as styles from './SurveyFieldArray.css';
+
+interface FieldArrayProps extends ArrayHelpers {
+    form: FormikProps<any>;
+    name: string;
+}
+
+interface SurveyFieldArrayProps extends FieldArrayProps {
+    label: string;
+}
+
+export const SurveyFieldArray: React.SFC<SurveyFieldArrayProps> = props => {
+    return (
+        <div className={styles.surveyFieldArray}>
+            <label className={styles.label}>{props.label}</label>
+            <AddButton
+                type="button"
+                onClick={() => {
+                    props.push('aaa');
+                }}
+                className={styles.addButton}
+            />
+            <br />
+            {props.form.values[props.name].map((value, index) => (
+                <div className={styles.inputField} key={`${props.name}${index}`}>
+                    {/* be careful of this name, note there is a dot here */}
+                    <Field name={`${props.name}.${index}`} className={styles.input} />
+                    <MinusButton
+                        type="button"
+                        className={styles.minusButton}
+                        onClick={() => {
+                            props.remove(index);
+                        }}
+                    />
+                </div>
+            ))}
+        </div>
+    );
+};
+
+SurveyFieldArray.defaultProps = {};
 ```
 
 ```tsx
@@ -126,7 +173,7 @@ import { Button } from 'my-react-story';
 import * as styles from './SurveyForm.css';
 import { Link } from 'react-router-dom';
 
-const fields: { name: string; label: string; value: string }[] = [
+const fields: { name: string; label: string; value: string | string[] }[] = [
     {
         name: 'title',
         label: 'Campaign Title',
@@ -140,9 +187,23 @@ interface SurveyFormValue {}
 
 const SurveyInnerForm: React.SFC<FormikProps<SurveyFormValue>> = (props: FormikProps<SurveyFormValue>) => {
     const { isSubmitting } = props;
-    const fieldsEl = fields.map(field => (
-        <Field key={field.label} name={field.name} label={field.label} component={SurveyField} />
-    ));
+
+    const fieldsEl = fields.map(field => {
+        return (
+            (typeof field.value === 'string' && (
+                <Field key={field.label} name={field.name} label={field.label} component={SurveyField} />
+            )) ||
+            (Array.isArray(field.value) && (
+                <FieldArray
+                    key={field.label}
+                    name={field.name}
+                    render={fieldArrayProps => {
+                        return <SurveyFieldArray label={field.label} name={field.name} {...fieldArrayProps} />;
+                    }}
+                />
+            ))
+        );
+    });
 
     return (
         <Form className={styles.surveyForm}>
