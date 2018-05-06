@@ -139,24 +139,45 @@ export const SurveyFieldArray: React.SFC<SurveyFieldArrayProps> = props => {
             <AddButton
                 type="button"
                 onClick={() => {
-                    props.push('aaa');
+                    props.push('');
                 }}
                 className={styles.addButton}
             />
             <br />
-            {props.form.values[props.name].map((value, index) => (
-                <div className={styles.inputField} key={`${props.name}${index}`}>
-                    {/* be careful of this name, note there is a dot here */}
-                    <Field name={`${props.name}.${index}`} className={styles.input} />
-                    <MinusButton
-                        type="button"
-                        className={styles.minusButton}
-                        onClick={() => {
-                            props.remove(index);
-                        }}
-                    />
-                </div>
-            ))}
+            {props.form.errors[props.name] &&
+                !Array.isArray(props.form.errors[props.name]) && (
+                    <p className={styles.error}>{props.form.errors[props.name]}</p>
+                )}
+            {props.form.values[props.name].map((value, index) => {
+                let inputClass = [styles.input];
+
+                if (
+                    Array.isArray(props.form.touched[props.name]) &&
+                    props.form.touched[props.name]![index] &&
+                    Array.isArray(props.form.errors[props.name]) &&
+                    props.form.errors[props.name][index]
+                ) {
+                    inputClass = [...inputClass, styles.inputError];
+                }
+
+                return (
+                    <div className={styles.inputField} key={`${props.name}${index}`}>
+                        <Field name={`${props.name}.${index}`} className={inputClass.join(' ')} />
+                        <MinusButton
+                            type="button"
+                            className={styles.minusButton}
+                            onClick={() => {
+                                props.remove(index);
+                            }}
+                        />
+                        {Array.isArray(props.form.touched[props.name]) &&
+                            props.form.touched[props.name]![index] &&
+                            Array.isArray(props.form.errors[props.name]) && (
+                                <p className={styles.error}>{props.form.errors[props.name][index]}</p>
+                            )}
+                    </div>
+                );
+            })}
         </div>
     );
 };
@@ -166,34 +187,53 @@ SurveyFieldArray.defaultProps = {};
 
 ```tsx
 import * as React from 'react';
-import { FormikProps, Form, Field, withFormik } from 'formik';
-import { SurveyField } from './SurverField/SurveyField';
+import { FormikProps, Form, Field, withFormik, FieldArray } from 'formik';
+import { SurveyField } from './SurveyField/SurveyField';
 import * as yup from 'yup';
 import { Button } from 'my-react-story';
 import * as styles from './SurveyForm.css';
-import { Link } from 'react-router-dom';
+import { RouterButton } from 'my-react-story';
+import { SurveyFieldArray } from './SurveyFieldArray/SurveyFieldArray';
 
-const fields: { name: string; label: string; value: string | string[] }[] = [
+const fields: { name: string; label: string; defaultValue: string | string[] }[] = [
     {
         name: 'title',
         label: 'Campaign Title',
-        value: ''
+        defaultValue: ''
+    },
+    {
+        name: 'subject',
+        label: 'Subject Line',
+        defaultValue: ''
+    },
+    {
+        name: 'emailBody',
+        label: 'Email Body',
+        defaultValue: ''
+    },
+    {
+        name: 'recipients',
+        label: 'Recipient List',
+        defaultValue: ['']
     }
 ];
 
-interface SurveyFormProps extends React.HtmlHTMLAttributes<{}> {}
-
-interface SurveyFormValue {}
+export interface SurveyFormValue {
+    title: string;
+    subject: string;
+    emailBody: string;
+    recipients: string[];
+}
 
 const SurveyInnerForm: React.SFC<FormikProps<SurveyFormValue>> = (props: FormikProps<SurveyFormValue>) => {
     const { isSubmitting } = props;
 
     const fieldsEl = fields.map(field => {
         return (
-            (typeof field.value === 'string' && (
+            (typeof props.values[field.name] === 'string' && (
                 <Field key={field.label} name={field.name} label={field.label} component={SurveyField} />
             )) ||
-            (Array.isArray(field.value) && (
+            (Array.isArray(props.values[field.name]) && (
                 <FieldArray
                     key={field.label}
                     name={field.name}
@@ -208,9 +248,7 @@ const SurveyInnerForm: React.SFC<FormikProps<SurveyFormValue>> = (props: FormikP
     return (
         <Form className={styles.surveyForm}>
             {fieldsEl}
-            <Link to="/dashboard" className={[styles.button, styles.cancel].join(' ')}>
-                Cancel
-            </Link>
+            <RouterButton text="Cancel" className={[styles.button, styles.cancel].join(' ')} to="/dashboard" />
             <Button
                 className={[styles.button, styles.submit].join(' ')}
                 text="Next"
@@ -221,21 +259,35 @@ const SurveyInnerForm: React.SFC<FormikProps<SurveyFormValue>> = (props: FormikP
     );
 };
 
+interface SurveyFormProps extends React.FormHTMLAttributes<{}> {
+    onFormSubmit: (values) => void;
+    values?: SurveyFormValue;
+}
+
 export const SurveyForm = withFormik<SurveyFormProps, SurveyFormValue>({
     mapPropsToValues: props => {
         let values = {};
         fields.forEach(field => {
-            values[field.name] = field.value;
+            values[field.name] = (props.values && props.values[field.name]) || field.defaultValue;
         });
-        return values;
+        return values as SurveyFormValue;
     },
     validationSchema: yup.object().shape({
-        title: yup.string().required('this field is required')
+        title: yup.string().required('this field is required'),
+        subject: yup.string().required('this field is required'),
+        emailBody: yup.string().required('this field is required'),
+        recipients: yup
+            .array(
+                yup
+                    .string()
+                    .required('must be an email')
+                    .email('must be an email')
+            )
+            .required('must have at least one recipient')
     }),
-    handleSubmit: (values: SurveyFormValue, { setSubmitting }) => {
-        // tslint:disable-next-line:no-console
-        console.log(values);
+    handleSubmit: (values: SurveyFormValue, { props, setSubmitting }) => {
         setSubmitting(false);
+        props.onFormSubmit(values);
     }
 })(SurveyInnerForm);
 ```
