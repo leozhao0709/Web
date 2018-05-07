@@ -157,7 +157,7 @@ const mapStateToProps = (state: StoreState): CounterStateProps => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): CounterDispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<StoreState>): CounterDispatchProps => {
     return {
         onIncCounter: () => dispatch(CounterActions.increment()),
         onDecCounter: () => dispatch(CounterActions.decrement()),
