@@ -17,7 +17,7 @@ Then you can inject it to react
 
 ```jsx
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from 'svg-inline-loader!./logo.svg';
 
 class Header extends Component {
     render() {
