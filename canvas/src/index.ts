@@ -40,4 +40,6 @@ window.onload = () => {
     canvasContext.moveTo(0, 100);
     canvasContext.quadraticCurveTo(500, 100, 400, 250);
     canvasContext.stroke();
+
+    canvasContext.strokeRect(20, 20, 100, 100);
 };

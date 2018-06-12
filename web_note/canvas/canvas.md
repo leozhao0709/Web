@@ -27,6 +27,7 @@ canvasContext.stroke(); // draw the line
 
 ```ts
 canvasContext.arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+canvasContext.fill() // file the arc
 ```
 
 ## 3. draw 抛物线
@@ -38,4 +39,12 @@ canvasContext.lineWidth = 10;
 canvasContext.moveTo(0, 100); // start point
 canvasContext.quadraticCurveTo(500, 100, 400, 250); // control point, end point
 canvasContext.stroke();
+```
+
+## 4. draw rect
+
+```ts
+canvasContext.strokeRect(20, 20, 100, 100);
+canvasContext.fillRect(20, 20, 100, 100);
+canvasContext.clearRect(20, 20, 100, 100);
 ```
