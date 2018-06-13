@@ -7,39 +7,21 @@ window.onload = () => {
     const app = document.querySelector('#root')!;
 
     const canvas = document.createElement('canvas');
-    canvas.setAttribute('width', '500px');
+    canvas.setAttribute('width', '800px');
     canvas.setAttribute('height', '600px');
     canvas.classList.add(styles.canvas);
     app.appendChild(canvas);
 
-    const canvasContext = canvas.getContext('2d')!;
-    canvasContext.strokeStyle = 'red';
-    canvasContext.lineWidth = 10;
-    canvasContext.lineCap = 'square';
-    canvasContext.lineJoin = 'round';
+    const context = canvas.getContext('2d')!;
 
-    canvasContext.shadowColor = 'black';
-    canvasContext.shadowOffsetX = 5;
-    canvasContext.shadowOffsetY = 10;
-    canvasContext.shadowBlur = 5;
+    context.font = '45px Inconsolata';
 
-    canvasContext.beginPath(); // reset the context state
-    canvasContext.moveTo(0, 0); // starting point of (x, y)
-    canvasContext.lineTo(500, 100); // end point a line (x, y)
-    canvasContext.stroke(); // draw the line
+    const fText = 'Fill Text on Canvas';
+    context.fillText(fText, 80, 100);
 
-    canvasContext.beginPath();
-    canvasContext.strokeStyle = 'blue';
-    canvasContext.lineWidth = 10;
-    canvasContext.arc(100, 100, 50, 0, Math.PI / 3);
-    canvasContext.stroke();
+    const sText = 'Stroke Text on Canvas';
+    context.strokeText(sText, 80, 200);
 
-    canvasContext.beginPath();
-    canvasContext.strokeStyle = 'blue';
-    canvasContext.lineWidth = 10;
-    canvasContext.moveTo(0, 100);
-    canvasContext.quadraticCurveTo(500, 100, 400, 250);
-    canvasContext.stroke();
-
-    canvasContext.strokeRect(20, 20, 100, 100);
+    context.save();
+    context.restore();
 };
