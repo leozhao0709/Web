@@ -26,6 +26,7 @@ canvasContext.stroke(); // draw the line
 ## 2. draw arcs
 
 ```ts
+canvasContext.beginPath();
 canvasContext.arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
 canvasContext.fill() // file the arc
 ```
@@ -108,4 +109,66 @@ context.fillStyle = radialGradient;
 context.rect(240, 40, 420, 420);
 context.stroke();
 context.fill();
+```
+
+## 10. animation
+
+```ts
+const ballAnimate = (context: CanvasRenderingContext2D) => {
+    setInterval(() => {
+        const canvas = context.canvas;
+
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        drawBall(context, BALL.x, BALL.y, BALL.radius);
+
+        if (BALL.x + BALL.radius > canvas.width || BALL.x - BALL.radius < 0) {
+            BALL.changedX *= -1;
+        }
+
+        if (BALL.y + BALL.radius > canvas.height || BALL.y - BALL.radius < 0) {
+            BALL.changedY *= -1;
+        }
+
+        BALL.x += BALL.changedX;
+        BALL.y += BALL.changedY;
+    }, 1000 / 60);
+};
+
+const drawBall = (context: CanvasRenderingContext2D, x: number, y: number, radius: number) => {
+    context.save();
+
+    context.beginPath();
+    context.fillStyle = 'orange';
+    context.arc(x, y, radius, 0, Math.PI * 2);
+    context.fill();
+    context.restore();
+};
+```
+
+## 11. transform
+
+important:
+
+-   **All the canvas transform is based on canvas itself!!!**
+-   **scale in canvas is not only scale width and height, it also scale x and y**
+-   **The rotation center point is always the canvas origin. To change the center point, we will need to move the canvas by using the `translate()` method**
+
+```ts
+context.rotate(45 * (Math.PI / 180));
+context.scale(0.5, 0.5);
+```
+
+## 12. mouse event
+
+Using `canvas.getBoundingClientRect()` to get the canvas bounds!
+
+```ts
+const canvasBoundReact = canvas.getBoundingClientRect();
+canvas.addEventListener('mousemove', event => {
+    // tslint:disable-next-line:no-console
+    console.log(event.clientX - canvasBoundReact.left);
+    // tslint:disable-next-line:no-console
+    console.log(event.clientY - canvasBoundReact.top);
+});
 ```
