@@ -22,28 +22,31 @@ window.onload = () => {
 
     const context = canvas.getContext('2d')!;
     drawBall(context, BALL.x, BALL.y, BALL.radius);
+
     ballAnimate(context);
 };
 
 const ballAnimate = (context: CanvasRenderingContext2D) => {
-    setInterval(() => {
-        const canvas = context.canvas;
+    const canvas = context.canvas;
 
-        context.clearRect(0, 0, canvas.width, canvas.height);
+    context.clearRect(0, 0, canvas.width, canvas.height);
 
-        drawBall(context, BALL.x, BALL.y, BALL.radius);
+    drawBall(context, BALL.x, BALL.y, BALL.radius);
 
-        if (BALL.x + BALL.radius > canvas.width || BALL.x - BALL.radius < 0) {
-            BALL.changedX *= -1;
-        }
+    if (BALL.x + BALL.radius > canvas.width || BALL.x - BALL.radius < 0) {
+        BALL.changedX *= -1;
+    }
 
-        if (BALL.y + BALL.radius > canvas.height || BALL.y - BALL.radius < 0) {
-            BALL.changedY *= -1;
-        }
+    if (BALL.y + BALL.radius > canvas.height || BALL.y - BALL.radius < 0) {
+        BALL.changedY *= -1;
+    }
 
-        BALL.x += BALL.changedX;
-        BALL.y += BALL.changedY;
-    }, 1000 / 60);
+    BALL.x += BALL.changedX;
+    BALL.y += BALL.changedY;
+
+    window.requestAnimationFrame(() => {
+        ballAnimate(context);
+    });
 };
 
 const drawBall = (context: CanvasRenderingContext2D, x: number, y: number, radius: number) => {
