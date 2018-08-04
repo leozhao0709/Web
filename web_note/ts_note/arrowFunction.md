@@ -2,22 +2,22 @@
 
 ## 0. Note
 
-*   Arrow function won't bind `this`. (actually it's keep current context!)
+-   Arrow function keeps outside context.
 
 ## 1. legacy arrow function tricky
 
 ```ts
 const user = {
-    // we don't have a this in this object unless someone instantiate then it has context this! that's why arrow function can't get a this.
+    // outside user this is undefined
     name: 'Lei',
     teamMember: ['Lei', 'Joe', 'Ben'],
     teamName: 'Spitfire',
     sayHi: () => {
-        console.log(`Hi, I'm ${this.name}`); // Hi, I'm undefined as current context this is undefine!
+        console.log(`Hi, I'm ${this.name}`); // Hi, I'm undefined as current context this is {}!
     },
 
-    sayHiFunction: function () {
-        console.log(`Hi, I'm ${this.name}`); // Hi, I'm Lei
+    sayHiFunction: function() {
+        console.log(`Hi, I'm ${this.name}`); // Hi, I'm Lei, function, so this means current user context
     },
 
     sayHiAlt() {
@@ -26,12 +26,12 @@ const user = {
 
     teamMemberSayHi: function() {
         this.teamMember.map(member => {
-            return `${member} is on team ${this.teamName}` // works correct
-        })
+            return `${member} is on team ${this.teamName}`; // works correct, arrow function keeps outside function this which is current user
+        });
 
-        this.teamMember.map(function(member) => {
-            return `${member} is on team ${this.teamName}` // not works correct as function lost context this because no one instantiate an object to call this function
-        })
+        this.teamMember.map(function(member) {
+            return `${member} is on team ${this.teamName}`; // inner function use its own this context, so this is undefined
+        });
     }
 };
 ```
