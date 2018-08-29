@@ -19,7 +19,7 @@ g.append('g')
 
 const yAxisCall = d3
     .axisLeft(heightScale)
-    .ticks(3) // 取附近最接近的值
+    .ticks(3) // 坐标轴分成几段, 可能不会取到这个值本身, 但是会取附近最合理的值. 如果想自定义坐标轴, 用tickValues([])
     .tickFormat(d => d + 'm'); // format坐标轴文字
 g.append('g').call(yAxisCall);
 ```
