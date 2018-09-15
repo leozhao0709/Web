@@ -11,3 +11,7 @@
 Note:
 
 -   The Angular CLI will start processing Sass files now. However,it doesn't go through the process of converting your already existing `.css` files to `.scss` files. **You'll have to make the conversion manually.**
+
+## 3. generate component
+
+`ng g c [component]`;
