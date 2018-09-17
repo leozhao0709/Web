@@ -1,13 +1,15 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { BasicHighlightDirective } from './basic-highlight/basic-highlight.directive';
+import {AppComponent} from './app.component';
+import {BasicHighlightDirective} from './basic-highlight/basic-highlight.directive';
+import {BetterHighlightDirective} from './better-highlight/better-highlight.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BasicHighlightDirective
+    BasicHighlightDirective,
+    BetterHighlightDirective
   ],
   imports: [
     BrowserModule
@@ -15,4 +17,5 @@ import { BasicHighlightDirective } from './basic-highlight/basic-highlight.direc
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
