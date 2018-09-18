@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'first-app';
+  currentFeature = 'recipes';
+
+  selectFeature(feature: string) {
+    this.currentFeature = feature;
+  }
 }
