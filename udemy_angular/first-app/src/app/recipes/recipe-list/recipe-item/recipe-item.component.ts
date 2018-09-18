@@ -10,11 +10,15 @@ import {RecipeService} from '../../recipe.service';
 export class RecipeItemComponent implements OnInit {
 
   @Input() recipe: Recipe;
+  @Input() selected: boolean;
 
   constructor(private recipeService: RecipeService) {
   }
 
   ngOnInit() {
+    this.recipeService.selectedRecipeChanged.subscribe(
+      (selectedRecipe) => this.selected = selectedRecipe === this.recipe
+    );
   }
 
   onSelectRecipe() {

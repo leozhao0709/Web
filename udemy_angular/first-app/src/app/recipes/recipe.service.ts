@@ -3,16 +3,11 @@ import {Recipe} from '../models/recipe.model';
 import {Ingredient} from '../models/ingredient.model';
 import {ShoppingListService} from '../shopping-list/shopping-list.service';
 
-@Injectable(
-  {
-    providedIn: 'root'
-  }
-)
+@Injectable()
 export class RecipeService {
 
   public selectedRecipeChanged = new EventEmitter<Recipe>();
 
-  private _selectedRecipes: Recipe;
   private _recipes: Recipe[] = [
     new Recipe(
       'Tasty Schnitzel',
@@ -39,13 +34,7 @@ export class RecipeService {
     return [...this._recipes];
   }
 
-
-  get selectedRecipes(): Recipe {
-    return this._selectedRecipes;
-  }
-
   selectRecipe(recipe: Recipe) {
-    this._selectedRecipes = recipe;
     this.selectedRecipeChanged.emit(recipe);
   }
 
