@@ -9,7 +9,6 @@
     <app-recipe-item
       *ngFor="let recipe of recipes"
       [recipe]="recipe"
-      (selectedRecipe)="onSelectRecipe($event)"
       [ngStyle]="{backgroundColor : currentSelectedRecipe === recipe ? 'lightyellow': 'transparent', display: 'block'}"></app-recipe-item>
   </div>
 </div>
