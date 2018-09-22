@@ -66,6 +66,7 @@ Note:
 -   You need inject `Router` in constructor.
 -   Then you can use `this.router.navigateByUrl('/servers');` or `this.router.navigate(['/servers'], {});` to navigate to different routes. **It's an abosulte path**. Note **for `navigate`, the first parameter is an array.**
 -   `navigate()` method has second parameter `NavigationExtras` which you can define some properties like `relativePath` or `fragment` or other things.
+-   For `NavigationExtras`, there's a `queryParamsHandling` option. You can have it value with `preserve` or `merge` or default with `''` which removed the original queryParams.
 -   You don't need to specify `/` to means it's an absolute path. If you want to use a relative path, please use `relativeTo` and inject `ActivatedRoute`. **Note relative path is only working for `navigate`, not `navigateByUrl`.**
 -   **Hint: Always use `/` and believe it's default an abosulte path no matter it's Router code in ts or RouterLink in template.**
 
