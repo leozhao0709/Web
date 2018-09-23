@@ -4,7 +4,7 @@
 
 ```ts
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent },
+    { path: 'home', component: HomeComponent },
     {
         path: 'users',
         component: UsersComponent,
@@ -13,15 +13,27 @@ const appRoutes: Routes = [
     {
         path: 'servers',
         component: ServersComponent,
+        canActivate: [AuthGuard],
         children: [{ path: ':id', component: ServerComponent }, { path: ':id/edit', component: EditServerComponent }]
     },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '**', pathMatch: 'full', component: PageNotFoundComponent }
 ];
+
+@NgModule({
+    imports: [CommonModule, RouterModule.forRoot(appRoutes)],
+    declarations: [],
+    exports: [RouterModule]
+})
+export class AppRoutingModule {}
 ```
 
 Note:
 
--   After you define the `Routes`, you **must register** it to App **Module** imports with `RouterModule.forRoot(appRoutes)`
+-   After you define the `Routes`, you **must register** it to App **Module**
+-   If your route needs a guard, please make sure you are using `guard`.
+-   You can also use hash strategy for your route using `RouterModule.forRoot(appRoutes, {useHash: true})`
+-   The order is related. Eachtime when it match one path, it will **not** continue to match the other.
 
 ## 2. routerLink & routerLinkActive
 
@@ -50,12 +62,12 @@ You can define the `href` with `routerLink` in template. You can also define the
 
 Note:
 
+-   **default routerLink in template is relative path**, like img src. If you want to use absolute path, then you need to prepend `/`
 -   `<a></a>` href can be used for multi-page jump. `routerLink` is only used for SPA jump.
 -   You can use `[routerLinkActiveOptions]="{exact: true}"` to define some router link active options.
 -   You can also use property binding `[routerLink]="['/users']"` when you want to pass an object or array.
 -   You can use `[queryParams]` to pass query params.
 -   You can use `fragment` to pass a fragment param.
--   You need to use `/` at first for your link which means it's a absolute path. If you don't use `/`, then it will be a relative path. This is different with Router in ts code.
 
 ## 3. Router in ts code
 
@@ -71,10 +83,11 @@ onReload() {
 
 Note:
 
+-   **default router navigate is using abosulte path.**
 -   You need inject `Router` in constructor.
 -   Then you can use `this.router.navigateByUrl('/servers');` or `this.router.navigate(['/servers'], {});` to navigate to different routes. **It's an abosulte path**. Note **for `navigate`, the first parameter is an array.**
 -   `navigate()` method has second parameter `NavigationExtras` which you can define some properties like `relativePath` or `fragment` or other things.
--   For `NavigationExtras`, there's a `queryParamsHandling` option. You can have it value with `preserve` or `merge` or default with `''` which removed the original queryParams.
+-   For `NavigationExtras`, there's a `queryParamsHandling` option **which is used to keep current query params.** You can have it value with `preserve` or `merge` or default with `''` which removed the original queryParams.
 -   You don't need to specify `/` to means it's an absolute path. If you want to use a relative path, please use `relativeTo` and inject `ActivatedRoute`. **Note relative path is only working for `navigate`, not `navigateByUrl`.**
 -   **Hint: Always use `/` and believe it's default an abosulte path no matter it's Router code in ts or RouterLink in template.**
 

@@ -1,11 +1,12 @@
-<app-header (selectFeatureEvent)="selectFeature($event)"></app-header>
+<app-header></app-header>
 <div class="container">
-  <div class="row" >
+  <div class="row">
     <div class="col-md-12">
-      <app-recipes *ngIf="currentFeature === 'recipes'; else shoppingListEl"></app-recipes>
-      <ng-template #shoppingListEl>
-        <app-shopping-list></app-shopping-list>
-      </ng-template>
+      <!--<app-recipes *ngIf="currentFeature === 'recipes'; else shoppingListEl"></app-recipes>-->
+      <!--<ng-template #shoppingListEl>-->
+      <!--<app-shopping-list></app-shopping-list>-->
+      <!--</ng-template>-->
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

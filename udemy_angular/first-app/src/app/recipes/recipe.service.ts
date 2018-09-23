@@ -34,8 +34,8 @@ export class RecipeService {
     return [...this._recipes];
   }
 
-  selectRecipe(recipe: Recipe) {
-    this.selectedRecipeChanged.emit(recipe);
+  getRecipeById(id: number) {
+    return this.recipes[id];
   }
 
   addRecipeIngredients(ingredients: Ingredient[]) {
