@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  searchInput = '';
   servers = [
     {
       instanceType: 'medium',
@@ -38,5 +39,12 @@ export class AppComponent {
       'list-group-item-warning': server.status === 'offline',
       'list-group-item-danger': server.status === 'critical'
     };
+  }
+
+  getServers() {
+    if (!this.searchInput) {
+      return this.servers;
+  }
+    return this.servers.filter((server) => server.name.toUpperCase().includes(this.searchInput.toUpperCase()));
   }
 }
