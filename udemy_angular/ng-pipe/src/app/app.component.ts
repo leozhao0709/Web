@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subject} from 'rxjs';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  searchInput = '';
+export class AppComponent implements OnInit, OnDestroy {
+
+  searchInputSubject = new Subject();
+
   servers = [
     {
       instanceType: 'medium',
@@ -33,7 +37,18 @@ export class AppComponent {
       started: new Date(15, 1, 2017)
     }
   ];
-  getStatusClasses(server: {instanceType: string, name: string, status: string, started: Date}) {
+
+  filterServers = this.servers;
+
+  ngOnInit(): void {
+    this.searchInputSubject.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+    ).subscribe((filterString: string) => this.filterServers = this.servers.filter(
+      (server) => server.name.toUpperCase().includes(filterString.toUpperCase())));
+  }
+
+  getStatusClasses(server: { instanceType: string, name: string, status: string, started: Date }) {
     return {
       'list-group-item-success': server.status === 'stable',
       'list-group-item-warning': server.status === 'offline',
@@ -41,10 +56,12 @@ export class AppComponent {
     };
   }
 
-  getServers() {
-    if (!this.searchInput) {
-      return this.servers;
+  onInput(event: Event) {
+    this.searchInputSubject.next((<HTMLInputElement>event.currentTarget).value);
   }
-    return this.servers.filter((server) => server.name.toUpperCase().includes(this.searchInput.toUpperCase()));
+
+  ngOnDestroy(): void {
+    this.searchInputSubject.unsubscribe();
   }
+
 }
