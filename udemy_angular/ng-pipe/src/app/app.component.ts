@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
+import {FormControl} from '@angular/forms';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,8 @@ import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  searchInputSubject = new Subject();
+  searchInputSubscription: Subscription;
+  searchControl = new FormControl();
 
   servers = [
     {
@@ -41,9 +43,10 @@ export class AppComponent implements OnInit, OnDestroy {
   filterServers = this.servers;
 
   ngOnInit(): void {
-    this.searchInputSubject.pipe(
-      debounceTime(500),
-      distinctUntilChanged(),
+
+    this.searchInputSubscription = this.searchControl.valueChanges.pipe(
+      debounceTime(1000),
+      distinctUntilChanged()
     ).subscribe((filterString: string) => this.filterServers = this.servers.filter(
       (server) => server.name.toUpperCase().includes(filterString.toUpperCase())));
   }
@@ -56,12 +59,9 @@ export class AppComponent implements OnInit, OnDestroy {
     };
   }
 
-  onInput(event: Event) {
-    this.searchInputSubject.next((<HTMLInputElement>event.currentTarget).value);
-  }
 
   ngOnDestroy(): void {
-    this.searchInputSubject.unsubscribe();
+    this.searchInputSubscription.unsubscribe();
   }
 
 }
