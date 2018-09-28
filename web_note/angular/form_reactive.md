@@ -157,3 +157,4 @@ Note:
 -   You can also create your own sync/async validator. Checking above example.
 -   When you use `<form>` element, all other ng related property within `<form>` will be something like `[***Name] = "'key'"`
 -   You can also use `[formControl]="yourControl"`, but this is not within a `<form>` element. Always just bind with an `<input>`. And then you can use your `this.yourControl.valueChanges` observable.
+-   If you don't bind template with your ts formGroup, then you will get `No provider for ControlContainer` error.
