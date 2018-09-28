@@ -15,3 +15,12 @@ Note:
 ## 3. generate component
 
 `ng g c [component]`;
+
+## 4. generate shared component library
+
+check this page: [stories create library](https://github.com/angular/angular-cli/wiki/stories-create-library)
+
+-   `ng generate library my-lib --prefix [prefix]`
+-   `ng build my-lib --prod`
+-   `cd dist/my-lib`
+-   `npm publish` this is used to publish to npm library
