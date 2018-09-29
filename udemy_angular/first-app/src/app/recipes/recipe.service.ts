@@ -3,10 +3,12 @@ import {Recipe} from '../models/recipe.model';
 import {Ingredient} from '../models/ingredient.model';
 import {ShoppingListService} from '../shopping-list/shopping-list.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RecipeService {
 
-  public selectedRecipeChanged = new EventEmitter<Recipe>();
+  public recipesChanged = new EventEmitter<Recipe[]>();
 
   private _recipes: Recipe[] = [
     new Recipe(
@@ -30,15 +32,30 @@ export class RecipeService {
   constructor(private shoppingListService: ShoppingListService) {
   }
 
-  get recipes(): Recipe[] {
+  getRecipes(): Recipe[] {
     return [...this._recipes];
   }
 
   getRecipeById(id: number) {
-    return this.recipes[id];
+    return this.getRecipes()[id];
   }
 
   addRecipeIngredients(ingredients: Ingredient[]) {
     this.shoppingListService.addIngredients(ingredients);
+  }
+
+  updateRecipe(index: number, newRecipe: Recipe) {
+    this._recipes[index] = newRecipe;
+    this.recipesChanged.emit(this.getRecipes());
+  }
+
+  addRecipe(newRecipe: Recipe) {
+    this._recipes.push(newRecipe);
+    this.recipesChanged.emit(this.getRecipes());
+  }
+
+  deleteRecipe(index: number) {
+    this._recipes.splice(index, 1);
+    this.recipesChanged.emit(this.getRecipes());
   }
 }

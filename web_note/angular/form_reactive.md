@@ -54,7 +54,7 @@
         <div formArrayName="hobbies">
           <h4>Your hobbies</h4>
           <button class="btn btn-default" type="button" (click)="onAddHobby()">Add hobby</button>
-          <div class="form-group" *ngFor="let hobbyControl of hobbies.controls; let i = index">
+          <div class="form-group" *ngFor="let hobbyControl of hobbies['controls']; let i = index">
             <input type="text" class="form-control" [formControlName]="i">
           </div>
         </div>
@@ -158,3 +158,33 @@ Note:
 -   When you use `<form>` element, all other ng related property within `<form>` will be something like `[***Name] = "'key'"`
 -   You can also use `[formControl]="yourControl"`, but this is not within a `<form>` element. Always just bind with an `<input>`. And then you can use your `this.yourControl.valueChanges` observable.
 -   If you don't bind template with your ts formGroup, then you will get `No provider for ControlContainer` error.
+-   For `FormArray`, sometimes you may need this format, associating with `FormGroup`:
+
+    ```ts
+    'ingredients': new FormArray(
+        recipe.ingredients.map(ingredient => {
+          return new FormGroup({
+            'name': new FormControl(ingredient.name),
+            'amount': new FormControl(ingredient.amount),
+          })
+        }, [Validators.required, Validators.minLength(1)])
+    ```
+
+    ```html
+      <div class="row" formArrayName="ingredients">
+        <div class="col-xs-12">
+          <div class="row" [formGroupName]="i" style="margin-top: 10px"
+               *ngFor="let ingredientControl of recipeForm.get('ingredients')['controls']; let i=index">
+            <div class="col-xs-8">
+              <input type="text" class="form-control" [formControlName]="'name'">
+            </div>
+            <div class="col-xs-2">
+              <input type="number" class="form-control" [formControlName]="'amount'">
+            </div>
+            <div class="col-xs-2">
+              <button class="btn btn-danger">X</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    ```
