@@ -26,7 +26,9 @@ export class ServerService {
   }
 
   getServers() {
-    return this.httpClient.get<Server[]>('https://ng-http-test.firebaseio.com/data.json')
+    return this.httpClient.get<Server[]>('https://ng-http-test.firebaseio.com/data.json', {
+      reportProgress: true
+    })
       .pipe(
         map(servers => servers.map(server => {
           server.name = `FETCHING_${server.name}`;
