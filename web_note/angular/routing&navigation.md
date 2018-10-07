@@ -32,7 +32,7 @@ Note:
 
 -   After you define the `Routes`, you **must register** it to App **Module**
 -   If your route needs a guard, please make sure you are using `guard`.
--   You can also use hash strategy for your route using `RouterModule.forRoot(appRoutes, {useHash: true})`
+-   You can also use **hash strategy** for your route using `RouterModule.forRoot(appRoutes, {useHash: true})`
 -   The order is related. Eachtime when it match one path, it will **not** continue to match the other.
 
 ## 2. routerLink & routerLinkActive

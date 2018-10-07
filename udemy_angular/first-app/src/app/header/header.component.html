@@ -11,13 +11,16 @@
         <li routerLinkActive="active"><a routerLink="/shoppinglist">Shopping List</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown" appDropdown [initialDropDown]="false">
+        <li *ngIf="!isAuthenticated"><a routerLink="/signup">Register</a></li>
+        <li *ngIf="!isAuthenticated"><a routerLink="/signin">LogIn</a></li>
+        <li class="dropdown" appDropdown [initialDropDown]="false" *ngIf="isAuthenticated">
           <a style="cursor: pointer">Manage <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a style="cursor: pointer" (click)="saveData()">Save Data</a></li>
             <li><a style="cursor: pointer" (click)="fetchData()">Fetch Data</a></li>
           </ul>
         </li>
+        <li *ngIf="isAuthenticated"><a style="cursor: pointer" (click)="onLogout()">LogOut</a></li>
       </ul>
     </div>
   </div>

@@ -13,11 +13,11 @@ export class DataStorageService {
   }
 
   saveData() {
-    return this.httpClient.put('https://ng-recipe-book-8e62b.firebaseio.com/data.json', this.recipeService.getRecipes());
+    return this.httpClient.put('https://ng-recipe-book-8e62b.firebaseio.com/recipes.json', this.recipeService.getRecipes());
   }
 
   fetchData() {
-    this.httpClient.get<Recipe[]>('https://ng-recipe-book-8e62b.firebaseio.com/data.json')
+    this.httpClient.get<Recipe[]>('https://ng-recipe-book-8e62b.firebaseio.com/recipes.json')
       .pipe(
         tap(res => console.log(res))
       )
