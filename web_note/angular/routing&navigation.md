@@ -21,7 +21,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-    imports: [CommonModule, RouterModule.forRoot(appRoutes)],
+    imports: [CommonModule, RouterModule.forRoot(appRoutes, { useHash: true, preloadingStrategy: PreloadAllModules })],
     declarations: [],
     exports: [RouterModule]
 })
@@ -32,7 +32,7 @@ Note:
 
 -   After you define the `Routes`, you **must register** it to App **Module**
 -   If your route needs a guard, please make sure you are using `guard`.
--   You can also use **hash strategy** for your route using `RouterModule.forRoot(appRoutes, {useHash: true})`
+-   You can also use **hash strategy** and **preload all modules strategy** for your route using `RouterModule.forRoot(appRoutes, {useHash: true, preloadingStrategy: PreloadAllModules})`
 -   The order is related. Eachtime when it match one path, it will **not** continue to match the other.
 
 ## 2. routerLink & routerLinkActive
@@ -119,3 +119,52 @@ Note:
 -   Use `ActivatedRoute.params.subscribe` to subscribe the params changed event.
 -   Use `ActivatedRoute.queryParams.subscribe` to subscribe the queryParams changed event.
 -   Use `ActivatedRoute.fragment.subscribe` to subscribe the fragment changed event.
+
+## 5. multi <router-outlet> in template
+
+If your template had multiple outlet, Using `outlet` in your Routes.
+
+```ts
+const routes: Routes = [
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: 'home', component: HomeComponent },
+    {
+        path: 'speakers',
+        component: SpeakersComponent,
+        children: [
+            { path: 'speakersList', component: SpeakersListComponent, outlet: 'list' },
+            { path: ':id', component: BioComponent, outlet: 'bio' }
+        ]
+    }
+];
+```
+
+```html
+<div class="columns">
+  <md-card>
+    <router-outlet name="list"></router-outlet>
+  </md-card>
+  <md-card>
+    <router-outlet name="bio"></router-outlet>
+  </md-card>
+</div>
+```
+
+For navigating:
+
+```html
+<button md-button
+  [routerLink]="['/speakers', {outlets: {'list': ['speakersList'], 'bio': ['none']}}]">
+  Speakers
+</button>
+```
+
+```ts
+showBio(id) {
+  this.router.navigate(['/speakers', {outlets: {'bio': [id]}}]);
+}
+```
+
+Note:
+
+-   `<button md-button [routerLink]="['/speakers', {outlets: {'list': ['speakersList'], 'bio': ['none']}}]">Speakers</button>`, using `{outlets: {'outlets_name': ['path'], 'outlets_name': ['different_path'],}}` to load `router-outlet`
