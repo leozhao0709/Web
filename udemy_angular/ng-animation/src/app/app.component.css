@@ -3,3 +3,8 @@
   height: 100px;
   background-color: orange;
 }
+
+p {
+  background-color: lightblue;
+  height: 50px;
+}

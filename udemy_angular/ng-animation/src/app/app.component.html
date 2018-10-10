@@ -1,1 +1,13 @@
 <div [@animationTrigger]="animationState" (click)="changeState()"></div>
+<hr>
+
+<button (click)="showParagrah = !showParagrah">Toggle</button>
+<p *ngIf="showParagrah" @fade>paragraph hahahahahahahaha</p>
+<hr>
+
+<button (click)="animateState = animateState === 'state1' ? 'state2': 'state1'; ">Shrink</button>
+<p [@shrink]="animateState" [ngStyle]="{'width.px': paraWidth}">Shrink me</p>
+<hr>
+
+<button (click)="addNewNumber()">Add new number</button>
+<p @addNumberAni *ngFor="let number of numbers">{{number}}</p>
