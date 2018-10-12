@@ -1,4 +1,4 @@
-import {animate, group, state, style, transition, trigger} from '@angular/animations';
+import {animate, group, keyframes, state, style, transition, trigger} from '@angular/animations';
 
 export const animationTrigger = trigger('animationTrigger', [
   state('initialState', style({
@@ -59,9 +59,20 @@ export const addNumberAnimation = trigger('addNumberAni', [
       animate(1000, style({
         opacity: 0.5,
       })),
-      animate(1000, style({
-        backgroundColor: 'red'
-      }))
+      animate(3000, keyframes([
+        style({
+          backgroundColor: 'white',
+          offset: 0
+        }),
+        style({
+          backgroundColor: 'red',
+          offset: 0.8
+        }),
+        style({
+          backgroundColor: 'green',
+          offset: 1
+        })
+      ]))
     ]),
     animate(1000)
   ])

@@ -10,4 +10,9 @@
 <hr>
 
 <button (click)="addNewNumber()">Add new number</button>
-<p @addNumberAni *ngFor="let number of numbers">{{number}}</p>
+<p @addNumberAni
+   (@addNumberAni.start)="onAnimationStart($event)"
+   (@addNumberAni.done)="onAnimationEnd($event)"
+   *ngFor="let number of numbers">
+  {{number}}
+</p>

@@ -99,10 +99,21 @@ export const addNumberAnimation = trigger('addNumberAni', [
                 })
             ),
             animate(
-                1000,
-                style({
-                    backgroundColor: 'red'
-                })
+                5000,
+                keyframes([
+                    style({
+                        backgroundColor: 'white',
+                        offset: 0
+                    }),
+                    style({
+                        backgroundColor: 'red',
+                        offset: 0.8
+                    }),
+                    style({
+                        backgroundColor: 'green',
+                        offset: 1
+                    })
+                ])
             )
         ]),
         animate(1000)
@@ -112,4 +123,48 @@ export const addNumberAnimation = trigger('addNumberAni', [
 
 Note:
 
--   With `group`, you can write **parallel** animations
+-   With `group`, you can write **parallel** animations.
+-   You can also use `keyframes` to define keyframes animation.
+
+## 4. Animation event
+
+You can track an animation start or done event.
+
+```html
+<p @addNumberAni
+   (@addNumberAni.start)="onAnimationStart($event)"
+   (@addNumberAni.done)="onAnimationDone($event)"
+   *ngFor="let number of numbers">
+  {{number}}
+</p>
+```
+
+Then you can define `onAnimationStart(event: AnimationEvent)` and `onAnimationDone(event: AnimationEvent)` in your component ts file.
+
+## 5. use Hostbinding to bind angular router animation
+
+```ts
+import { Component, OnInit, HostBinding } from '@angular/core';
+import { routeFadeStateTrigger, routeSlideStateTrigger } from '../shared/route-animation';
+
+@Component({
+    selector: 'app-users',
+    templateUrl: './users.component.html',
+    styleUrls: ['./users.component.scss'],
+    animations: [routeFadeStateTrigger, routeSlideStateTrigger]
+})
+export class UsersComponent implements OnInit {
+    // @HostBinding('@routeFadeState') routeAnimation = true;
+    @HostBinding('@routeSlideState')
+    routeAnimation = true;
+
+    constructor() {}
+
+    ngOnInit() {}
+}
+```
+
+Note:
+
+-   Use HostBinding to set up the animation.
+-   Component by default is an `inline` element, so you must set `display:block` for your component.

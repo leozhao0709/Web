@@ -28,4 +28,12 @@ export class AppComponent {
   addNewNumber() {
     this.numbers.push(Math.random());
   }
+
+  onAnimationStart(event: AnimationEvent) {
+    console.log(event);
+  }
+
+  onAnimationEnd(event: AnimationEvent) {
+    console.log(event);
+  }
 }
