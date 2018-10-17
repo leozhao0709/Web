@@ -61,3 +61,5 @@ Note:
 
 `Date.prototype.getTimezoneOffset()`
 返回当前时区的时区偏移。
+
+`Date.prototype.setDate()` also works.
