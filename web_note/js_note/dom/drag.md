@@ -8,7 +8,7 @@
 
 ## 2. target Element (拖拽目的地)
 
-页面中设置了 draggable="true"属性的元素
+页面中设置了 `draggable="true"`属性的元素
 
 ## 3. eventListener
 

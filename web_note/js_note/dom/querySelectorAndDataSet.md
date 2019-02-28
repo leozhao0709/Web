@@ -2,7 +2,7 @@
 
 ## 1. querySelector
 
-document.querySelector(‘div’) 通过CSS选择器获取元素，符合匹配条件的**第1个**元素.
+document.querySelector('div') 通过CSS选择器获取元素，符合匹配条件的**第1个**元素.
 
 ## 2. querySelectorAll
 
