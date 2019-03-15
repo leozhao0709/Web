@@ -6,13 +6,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Web Componet</title>
     <script src="tooltip.js"></script>
+    <script src="confirm-link.js"></script>
     <style>
       * {
         cursor: default;
       }
+
+      a {
+        cursor: pointer;
+      }
+
+      div {
+        border: 1px solid red;
+      }
     </style>
   </head>
   <body>
-    adasd asd<lz-tooltip text="I'm component tooltip">I am a tool tip</lz-tooltip>
+    adasd asd<lz-tooltip text="I'm component tooltip">I have a tool tip</lz-tooltip>
+    <lz-tooltip></lz-tooltip>
+
+    <a is="confirm-link" href="https://www.google.com" target="_blank">Google</a>
   </body>
 </html>
