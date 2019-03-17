@@ -22,11 +22,14 @@
 
       .highlighted {
         background-color: rosybrown;
+        border: 2px solid blue;
       }
     </style>
   </head>
   <body>
-    adasd asd<lz-tooltip text="I'm component tooltip">I have a tool tip</lz-tooltip>
+    adasd asd<lz-tooltip text="I'm component tooltip"
+      ><span class="highlighted">I have a tool tip</span>asdsadasd</lz-tooltip
+    >
     <lz-tooltip></lz-tooltip>
 
     <a is="confirm-link" href="https://www.google.com" target="_blank">Google</a>

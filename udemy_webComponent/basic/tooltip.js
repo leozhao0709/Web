@@ -16,7 +16,13 @@ class Tooltip extends HTMLElement {
         }
         :host {
           border: 1px solid #000;
+          position: relative;
         }
+
+        ::slotted(.highlighted) {
+          background-color: yellow;
+        }
+
       </style>
       <slot>Some default</slot>
     `;
@@ -28,8 +34,6 @@ class Tooltip extends HTMLElement {
       this._tooltipText = this.getAttribute('text'); // you can define your component attribute and get it like this
     }
 
-    this.style.backgroundColor = 'orange';
-    this.style.position = 'relative';
     this.addEventListener('mouseenter', () => {
       this._tooltipContainer = document.createElement('div');
       this._tooltipContainer.textContent = this._tooltipText;
