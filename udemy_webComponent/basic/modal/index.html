@@ -18,8 +18,24 @@
     </style>
   </head>
   <body>
-    <lz-modal></lz-modal>
+    <lz-modal>
+      <h1 slot="title">Please confirm</h1>
+      <p>
+        With your confirmation you agree to pay the full amount!
+      </p>
+    </lz-modal>
     <p>Please confirm your choice.</p>
     <button>Show Details & Confirm</button>
   </body>
+
+  <script>
+    const confirmButton = document.querySelector('button');
+    const modal = document.querySelector('lz-modal');
+
+    confirmButton.addEventListener('click', () => {
+      if (!modal.isOpen) {
+        modal.open();
+      }
+    });
+  </script>
 </html>
