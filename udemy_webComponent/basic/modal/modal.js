@@ -20,7 +20,7 @@ class Modal extends HTMLElement {
                 position: fixed;
                 z-index: 100;
                 left: 25%;
-                top: 15vh;
+                top: 10vh;
                 width: 50%;
                 background-color: white;
                 border-radius: 3px;
@@ -38,12 +38,19 @@ class Modal extends HTMLElement {
                 pointer-events: all;
             }
 
+            :host([opened]) #modal {
+              top: 15vh;
+              transition: all 0.3s ease-out;
+            }
+
             header {
                 padding: 1rem;
+                border-bottom: 1px solid #ccc;
             }
 
             ::slotted(h1) {
                 font-size: 1.25rem;
+                margin: 0;
             }
 
             #main {
@@ -70,18 +77,18 @@ class Modal extends HTMLElement {
                 <slot></slot>
             </section>
             <section id="actions">
-                <button>Cancel</button>
-                <button>Okay</button>
+                <button id="cancel-btn">Cancel</button>
+                <button id="confirm-btn">Okay</button>
             </section>
         </div>
     `;
-  }
 
-  connectedCallback() {
+    const cancelBtn = this.shadowRoot.querySelector('#cancel-btn');
+    const confirmBtn = this.shadowRoot.querySelector('#confirm-btn');
     const backdrop = this.shadowRoot.querySelector('#backdrop');
-    backdrop.addEventListener('click', () => {
-      this.close();
-    });
+    backdrop.addEventListener('click', e => this._cancel(e));
+    cancelBtn.addEventListener('click', e => this._cancel(e));
+    confirmBtn.addEventListener('click', () => this._confirm());
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -102,8 +109,20 @@ class Modal extends HTMLElement {
     this.setAttribute('opened', '');
   }
 
-  close() {
+  _close() {
     this.removeAttribute('opened');
+  }
+
+  _cancel(e) {
+    this._close();
+    const cancelEvent = new Event('cancel', { composed: true });
+    e.currentTarget.dispatchEvent(cancelEvent);
+  }
+
+  _confirm() {
+    this._close();
+    const confirmEvent = new Event('confirm');
+    this.dispatchEvent(confirmEvent);
   }
 }
 

@@ -37,5 +37,8 @@
         modal.open();
       }
     });
+
+    modal.addEventListener('confirm', () => console.log('...confirm...'));
+    modal.addEventListener('cancel', () => console.log('...cancel...'));
   </script>
 </html>
