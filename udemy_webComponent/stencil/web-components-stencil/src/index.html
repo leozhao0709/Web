@@ -24,6 +24,7 @@
     </style>
   </head>
   <body>
+    <button id="side-draw-btn">Open Side Draw</button>
     <lz-side-draw title="main menu">
       <nav class="side-nav">
         <ul>
@@ -37,8 +38,9 @@
 
   <script>
     const sideDraw = document.querySelector('lz-side-draw');
-    setTimeout(() => {
-      sideDraw.title = 'changed title';
-    }, 3000);
+    const sideDrawBtn = document.querySelector('#side-draw-btn');
+    sideDrawBtn.addEventListener('click', () => {
+      sideDraw.open = true;
+    });
   </script>
 </html>

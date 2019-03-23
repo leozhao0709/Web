@@ -7,15 +7,17 @@ import { Component, Prop } from '@stencil/core';
 })
 export class SideDrawer {
   @Prop() title: string = 'defauly title';
+  @Prop({ reflectToAttr: true, mutable: true }) open = false;
 
   render() {
     return (
       <aside>
         <header>
           <h1>{this.title}</h1>
+          <button onClick={() => (this.open = false)}>X</button>
         </header>
         <main>
-          <slot></slot>
+          <slot />
         </main>
       </aside>
     );
