@@ -1,15 +1,44 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
-  <title>Stencil Component Starter</title>
-  <script src="/build/mycomponent.js"></script>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Stencil Component Starter</title>
+    <script src="/build/mycomponent.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      .side-nav ul {
+        list-style: none;
+      }
 
-</head>
-<body>
+      .side-nav li {
+        padding: 1rem 0;
+      }
 
-  <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+      .side-nav a {
+        text-decoration: none;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <lz-side-draw title="main menu">
+      <nav class="side-nav">
+        <ul>
+          <li><a href="#">A Link</a></li>
+          <li><a href="#">Another Link</a></li>
+          <li><a href="#">A thrid Link</a></li>
+        </ul>
+      </nav>
+    </lz-side-draw>
+  </body>
 
-</body>
+  <script>
+    const sideDraw = document.querySelector('lz-side-draw');
+    setTimeout(() => {
+      sideDraw.title = 'changed title';
+    }, 3000);
+  </script>
 </html>
