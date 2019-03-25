@@ -13,11 +13,12 @@ import '@stencil/core';
 export namespace Components {
 
   interface LzSideDraw {
-    'open': boolean;
+    'open': () => void;
+    'opened': boolean;
     'title': string;
   }
   interface LzSideDrawAttributes extends StencilHTMLAttributes {
-    'open'?: boolean;
+    'opened'?: boolean;
     'title'?: string;
   }
 }
