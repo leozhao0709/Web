@@ -1,6 +1,6 @@
 {
-  "name": "web-components-stencil",
-  "version": "0.0.1",
+  "name": "lz-component",
+  "version": "0.0.2",
   "description": "Stencil Component Starter",
   "module": "dist/esm/index.js",
   "main": "dist/index.js",
