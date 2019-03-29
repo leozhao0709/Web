@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PersonsService } from './persons.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class PersonsComponent implements OnInit {
   constructor(private personsService: PersonsService) {}
 
   ngOnInit() {
-    this.personsList = this.personsService.persons;
+    this.personsService.fetchPersons();
     this.personsService.personsChanged.subscribe(persons => (this.personsList = persons));
   }
 
