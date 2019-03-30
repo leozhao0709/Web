@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, mergeMapTo, mergeMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +12,13 @@ export class PersonsService {
   constructor(private httpClient: HttpClient) {}
 
   fetchPersons() {
-    this.httpClient
+    return this.httpClient
       .get<any>('https://jsonplaceholder.typicode.com/users')
-      .pipe(map(res => res.map(user => user.username)))
-      .subscribe(persons => {
-        this.persons = persons;
-        this.personsChanged.emit(this.persons);
-      });
+      .pipe(map(res => res.map(user => user.username)));
+    // .subscribe(persons => {
+    //   this.persons = persons;
+    //   this.personsChanged.emit(this.persons);
+    // });
   }
 
   addPerson(name: string) {

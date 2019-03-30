@@ -1,3 +1,4 @@
-<ul>
+<p *ngIf="isLoadingPersonList">Loading personsList...</p>
+<ul *ngIf="!isLoadingPersonList">
   <li *ngFor="let person of personsList" (click)="onRemovePerson(person)">{{ person }}</li>
 </ul>
