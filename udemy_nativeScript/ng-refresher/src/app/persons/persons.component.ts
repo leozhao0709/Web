@@ -1,35 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PersonsService } from './persons.service';
+import { Observable } from 'rxjs';
+import { StoreService } from '../store.service';
 
 @Component({
   selector: 'app-persons',
   templateUrl: './persons.component.html',
   styleUrls: ['./persons.component.scss']
 })
-export class PersonsComponent implements OnInit {
+export class PersonsComponent implements OnInit, OnDestroy {
   personsList: string[];
-  isLoadingPersonList = false;
+  personsSubject$: Observable<string[]>;
 
-  constructor(private personsService: PersonsService) {}
+  constructor(private personsService: PersonsService, private storeService: StoreService) {}
 
   ngOnInit() {
-    this.fetchPersonsList();
-    this.personsService.personsChanged.subscribe(persons => {
-      this.isLoadingPersonList = false;
-      this.personsList = persons;
-    });
+    // this.personsService.personsChanged.subscribe(persons => {
+    //   this.personsList = persons;
+    // });
+    console.log('person componen init...');
+    this.personsSubject$ = this.storeService.personList$;
   }
 
-  fetchPersonsList() {
-    this.isLoadingPersonList = true;
-    this.personsService.fetchPersons().subscribe(
-      persons => {
-        console.log('...loading start...');
-        this.personsList = persons;
-      },
-      null,
-      () => console.log('...finish loading...')
-    );
+  ngOnDestroy(): void {
+    console.log('...destroyed...');
   }
 
   onRemovePerson(name: string) {

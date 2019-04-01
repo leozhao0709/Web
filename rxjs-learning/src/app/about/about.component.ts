@@ -26,7 +26,7 @@ export class AboutComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    const subject = new AsyncSubject<number>();
+    const subject = new BehaviorSubject(0);
     subject.subscribe(val => console.log('first subscriber ', val));
     subject.next(1);
     subject.next(2);

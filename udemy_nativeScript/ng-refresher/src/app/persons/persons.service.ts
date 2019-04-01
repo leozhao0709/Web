@@ -12,13 +12,13 @@ export class PersonsService {
   constructor(private httpClient: HttpClient) {}
 
   fetchPersons() {
-    return this.httpClient
+    this.httpClient
       .get<any>('https://jsonplaceholder.typicode.com/users')
-      .pipe(map(res => res.map(user => user.username)));
-    // .subscribe(persons => {
-    //   this.persons = persons;
-    //   this.personsChanged.emit(this.persons);
-    // });
+      .pipe(map(res => res.map(user => user.username)))
+      .subscribe(persons => {
+        this.persons = persons;
+        this.personsChanged.emit(this.persons);
+      });
   }
 
   addPerson(name: string) {
