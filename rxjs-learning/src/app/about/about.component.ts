@@ -1,5 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { of, concat, interval, merge, Subscription } from 'rxjs';
+import {
+  of,
+  concat,
+  interval,
+  merge,
+  Subscription,
+  Subject,
+  from,
+  fromEvent,
+  BehaviorSubject,
+  AsyncSubject,
+  ReplaySubject
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { createHttpObservable } from '../common/util';
 
@@ -14,7 +26,16 @@ export class AboutComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.sub = createHttpObservable('/api/courses').subscribe(val => console.log(val));
-    this.sub.unsubscribe();
+    const subject = new AsyncSubject<number>();
+    subject.subscribe(val => console.log('first subscriber ', val));
+    subject.next(1);
+    subject.next(2);
+    subject.next(3);
+
+    subject.complete();
+    setTimeout(() => {
+      subject.subscribe(val => console.log('second subscriber ', val));
+      subject.next(4);
+    }, 3000);
   }
 }

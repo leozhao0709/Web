@@ -5,7 +5,12 @@ export const createHttpObservable = (url: string) => {
     const abortController = new AbortController();
     const signal = abortController.signal;
     fetch(url, { signal })
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          observer.error('Request failed with status code: ' + res.status);
+        }
+        return res.json();
+      })
       .then(body => {
         observer.next(body);
         observer.complete();
