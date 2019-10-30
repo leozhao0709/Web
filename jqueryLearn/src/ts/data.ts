@@ -1,7 +1,7 @@
 // tslint:disable: no-var-requires
-const accordion = require('../html/accordion');
-const slidePanel = require('../html/slidePanel');
-const newsTicker = require('../html/newsTicker');
+const accordion = require('../components/accordion');
+const slidePanel = require('../components/slidePanel');
+const newsTicker = require('../components/newsTicker');
 
 export const navData = {
   accordion: {

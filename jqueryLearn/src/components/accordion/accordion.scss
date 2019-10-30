@@ -1,0 +1,23 @@
+#accordion {
+    width: 500px;
+    margin: 50px auto;
+    opacity: 0;
+
+    & > section {
+        margin-top: -2px;
+
+        // padding: 5px;
+        border: 2px solid rgb(218, 136, 150);
+
+        .header {
+            padding: 3px;
+            background-color: rgb(236, 168, 179);
+            cursor: pointer;
+        }
+
+        .content {
+            padding: 5px;
+            background-color: rgba(240, 204, 210, 0.5);
+        }
+    }
+}
