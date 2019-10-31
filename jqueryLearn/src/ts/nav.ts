@@ -18,8 +18,6 @@ $(document).ready(() => {
       const route = routes.find(r => r.path === path);
       const htmlFile = route.content;
       $('#app').html(htmlFile);
-      window.history.replaceState(null, route.navName, path);
+      window.history.replaceState(route.navName, route.navName, path);
     });
-
-  // $('nav ul li:first>a').click();
 });
