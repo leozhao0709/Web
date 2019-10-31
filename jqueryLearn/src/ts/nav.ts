@@ -1,8 +1,8 @@
-import { navData } from './data';
+import { routes } from '../routes/routes';
 
 $(document).ready(() => {
   const ul = $('<ul/>');
-  Object.keys(navData).forEach(key => ul.append(`<li><a href=${key}>${navData[key].name}</a></li>`));
+  routes.forEach(route => route.navName && ul.append(`<li><a href=${route.path}>${route.navName}</a></li>`));
 
   $('nav')
     .append(ul)
@@ -14,9 +14,12 @@ $(document).ready(() => {
         .siblings()
         .removeClass('active');
 
-      const htmlFile = navData[$(this).attr('href')].content;
+      const path = $(this).attr('href');
+      const route = routes.find(r => r.path === path);
+      const htmlFile = route.content;
       $('#app').html(htmlFile);
+      window.history.replaceState(null, route.navName, path);
     });
 
-  $('nav ul li:first>a').click();
+  // $('nav ul li:first>a').click();
 });
