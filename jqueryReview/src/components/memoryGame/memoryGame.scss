@@ -1,0 +1,24 @@
+#memoryGame {
+  margin: 50px auto;
+
+  .header {
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+
+    .score {
+      vertical-align: bottom;
+    }
+
+    .btn {
+      margin-left: 30px;
+      padding: 5px 8px;
+      background-color: #222831;
+      color: #fff;
+      outline: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+  }
+}
