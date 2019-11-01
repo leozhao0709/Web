@@ -1,5 +1,5 @@
 nav {
-    background-color: #343a40;
+    background-color: #222831;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -12,11 +12,11 @@ nav {
         font-size: 20px;
 
         li:hover {
-            background-color: rgba(255, 255, 255, 0.075);
+            background-color: #393e46;
         }
 
         li.active {
-            background-color: rgba(255, 255, 255, 0.075);
+            background-color: #393e46;
         }
 
         a {
