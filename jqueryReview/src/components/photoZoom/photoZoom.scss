@@ -1,0 +1,25 @@
+#photoZoom {
+    width: 600px;
+    height: 400px;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+
+    .row {
+        display: flex;
+        flex: 1;
+        height: 100%;
+
+        .item {
+            flex: 1;
+            overflow: hidden;
+            cursor: pointer;
+
+            img {
+                vertical-align: top;
+                width: 200%;
+                opacity: 0.5;
+            }
+        }
+    }
+}
