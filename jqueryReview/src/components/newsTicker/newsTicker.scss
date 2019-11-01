@@ -1,0 +1,16 @@
+#newsTicker {
+    width: 300px;
+    height: 400px;
+    border: 5px solid #829FD9;
+    margin: 50px auto;
+    padding: 10px;
+    overflow: hidden;
+
+    ul {
+        list-style: none;
+
+        li {
+            margin-bottom: 10px;
+        }
+    }
+}
