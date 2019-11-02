@@ -34,7 +34,6 @@
   };
 
   const loadGameUI = (arr: number[][]) => {
-    console.log(arr);
     if (!arr || arr.length === 0) {
       return;
     }
@@ -43,8 +42,15 @@
     const column = arr[0].length;
 
     let move = 0;
-    const moveSection = $('#memoryGame .header .move');
+    const headerSection = $('#memoryGame .header');
+    const moveSection = headerSection.find('.move');
     moveSection.text(`Moves: ${move}`);
+
+    headerSection
+      .find('.btn.cheat')
+      .off('click')
+      // tslint:disable-next-line: no-console
+      .on('click', () => console.log(arr));
 
     const mainSection = $('#memoryGame main');
     mainSection.html('');
@@ -58,7 +64,7 @@
     }
 
     let lastClickCard: JQuery | null = null;
-    mainSection.on('click', '.row > .card', function() {
+    mainSection.off('click').on('click', '.row > .card', function() {
       if (
         $(this)
           .find('.content')
@@ -106,7 +112,7 @@
     });
   };
 
-  const loadGame = (row, column) => {
+  const loadGame = (row: number, column: number) => {
     const gameArr = loadGameArray(row, column);
     loadGameUI(gameArr);
   };

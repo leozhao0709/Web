@@ -16,7 +16,8 @@
     "build": "parcel build src/index.html",
     "clean": "rm -rf .cache && rm -rf dist",
     "test": "yarn lint && jest --coverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "lint": "tslint -p tsconfig.json -c tslint.json"
   },
   "dependencies": {
     "@types/jquery": "^3.3.31",
