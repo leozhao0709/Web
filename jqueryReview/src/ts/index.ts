@@ -6,13 +6,17 @@ const loadInitialData = () => {
 
   let route = routes.find(r => r.path === currentPath);
 
+  if (!route) {
+    route = routes[0];
+  }
+
   if (route.redirectTo) {
-    const redirectRoute = routes.find(r => r.path === route.redirectTo);
+    const redirectRoute = routes.find(r => r.path === route!.redirectTo);
     if (redirectRoute) {
-      window.history.replaceState(null, route.navName, redirectRoute.path);
+      // window.history.replaceState(null, route.navName!, redirectRoute.path);
       route = redirectRoute;
     } else {
-      throw new Error(`Can't find redirect path: ${redirectRoute.redirectTo}`);
+      throw new Error(`Can't find redirect path: ${redirectRoute!.redirectTo}`);
     }
   } else if (!route.path) {
     throw new Error(`Can't find path: ${currentPath}`);

@@ -15,9 +15,9 @@ $(document).ready(() => {
         .removeClass('active');
 
       const path = $(this).attr('href');
-      const route = routes.find(r => r.path === path);
+      const route = routes.find(r => r.path === path)!;
       const htmlFile = route.content;
       $('#app').html(htmlFile);
-      window.history.replaceState(route.navName, route.navName, path);
+      // window.history.replaceState(route.navName, route.navName!, path);
     });
 });
