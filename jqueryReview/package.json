@@ -17,7 +17,8 @@
     "clean": "rm -rf .cache && rm -rf dist",
     "test": "yarn lint && jest --coverage",
     "test:watch": "jest --watch",
-    "lint": "tslint -p tsconfig.json -c tslint.json"
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "heroku": "cd .. && git subtree push --prefix jqueryReview heroku master && cd jqueryReview"
   },
   "dependencies": {
     "@types/jquery": "^3.3.31",

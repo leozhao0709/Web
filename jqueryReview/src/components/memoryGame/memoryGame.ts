@@ -46,11 +46,30 @@
     const moveSection = headerSection.find('.move');
     moveSection.text(`Moves: ${move}`);
 
-    headerSection
-      .find('.btn.cheat')
-      .off('click')
+    headerSection.off('click').on('click', '.btn.cheat', () => {
       // tslint:disable-next-line: no-console
-      .on('click', () => console.log(arr));
+      console.log(arr);
+      $('#memoryGame main .card').each(function(_, element) {
+        if (
+          $(element)
+            .find('.content')
+            .get(0)
+        ) {
+          return;
+        }
+        const contentElem = $(`<div class="content">${arr[$(element).data('row')][$(element).data('column')]}</div>`);
+        contentElem
+          .appendTo($(this))
+          .hide()
+          .fadeIn(250, function() {
+            $(this).fadeOut(250, () => {
+              $(this)
+                .parent()
+                .empty();
+            });
+          });
+      });
+    });
 
     const mainSection = $('#memoryGame main');
     mainSection.html('');
@@ -92,12 +111,12 @@
 
           if (arr[clickRow][clickColumn] !== arr[lastClickRow][lastClickColumn]) {
             // if not match hide current with last
-            lastClickCard.find('.content').fadeOut(1000, function() {
+            lastClickCard.find('.content').fadeOut(500, function() {
               $(this).remove('.content');
             });
             $(this)
               .find('.content')
-              .fadeOut(1000, function() {
+              .fadeOut(500, function() {
                 $(this).remove('.content');
               });
           } else {
@@ -118,10 +137,23 @@
   };
 
   $(document).ready(() => {
-    const row = 4;
-    const column = 4;
-
+    let row = 4;
+    let column = 4;
     loadGame(row, column);
+
+    $('.select.difficulty').on('change', function() {
+      switch (parseInt($(this).val() as string, 10)) {
+        case 1:
+          row = 6;
+          column = 4;
+          break;
+        default:
+          row = 4;
+          column = 4;
+          break;
+      }
+      loadGame(row, column);
+    });
 
     $('.btn.reset').on('click', () => loadGame(row, column));
   });

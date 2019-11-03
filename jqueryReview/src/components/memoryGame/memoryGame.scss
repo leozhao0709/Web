@@ -20,6 +20,11 @@
             cursor: pointer;
             font-size: 15px;
         }
+
+        .select {
+            margin-left: 36px;
+            outline: none;
+        }
     }
 
     main {
@@ -33,8 +38,8 @@
             justify-content: center;
 
             .card {
-                width: 100px;
-                height: 100px;
+                width: 80px;
+                height: 80px;
                 padding: 10px;
                 border: 5px solid #000;
                 margin: 10px;
@@ -48,6 +53,17 @@
                     align-items: center;
                     justify-content: center;
                     font-size: 40px;
+                }
+            }
+
+            @media screen and (max-width: 500px) {
+                .card {
+                    width: 60px;
+                    height: 60px;
+
+                    .content {
+                        font-size: 15px;
+                    }
                 }
             }
         }
