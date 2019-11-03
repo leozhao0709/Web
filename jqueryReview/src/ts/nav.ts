@@ -14,10 +14,21 @@ $(document).ready(() => {
         .siblings()
         .removeClass('active');
 
+      if ($('nav .menu').is(':visible')) {
+        $(this)
+          .parent()
+          .parent()
+          .toggle(1000);
+      }
+
       const path = $(this).attr('href');
       const route = routes.find(r => r.path === path)!;
       const htmlFile = route.content;
       $('#app').html(htmlFile);
       // window.history.replaceState(route.navName, route.navName!, path);
+    })
+    .find('.menu .icon')
+    .on('click', function() {
+      $('nav ul').toggle(1000);
     });
 });

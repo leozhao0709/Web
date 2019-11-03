@@ -4,13 +4,18 @@
     align-items: center;
 
     .panel {
+        max-width: 100%;
+        display: 0 auto;
+
         .content {
+            max-width: 100%;
             width: 495px;
             height: 200px;
             background-color: #8f695c;
         }
 
         .bottomLine {
+            max-width: 100%;
             width: 495px;
             border-bottom: 5px solid #4e342e;
         }
