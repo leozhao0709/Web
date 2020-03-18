@@ -1,5 +1,0 @@
-{
-  "transforms": {
-    "types:*.{ts,tsx}": "@parcel/transformer-typescript-types",
-  }
-}
