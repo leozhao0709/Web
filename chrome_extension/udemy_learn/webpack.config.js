@@ -74,5 +74,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [new CopyPlugin(['manifest.json']), new HtmlWebpackPlugin({ template: 'src/index.html' })]
+  plugins: [new CopyPlugin(['manifest.json', 'README.md']), new HtmlWebpackPlugin({ template: 'src/index.html' })]
 };

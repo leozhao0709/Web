@@ -15,7 +15,8 @@ window.addEventListener('load', () => {
         chrome.runtime.sendMessage({ msg: 'please check msg, somgthing is available!' });
       }
     }
-  }, 1000 * 5);
+  }, 1000 * 30);
 
   addStopBtn(timer);
+  console.log('...checking start...');
 });
