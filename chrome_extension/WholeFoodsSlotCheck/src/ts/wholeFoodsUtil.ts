@@ -1,7 +1,6 @@
-import { addStopBtn } from './ts/addStopBtn';
-
-window.addEventListener('load', () => {
-  const timer = setInterval(() => {
+const wholeFoodsUtil = {
+  storedIntervalKey: 'wholeFoodsCheckInterval',
+  check: () => {
     location.reload();
     const today = new Date();
     const year = today.getFullYear();
@@ -12,11 +11,11 @@ window.addEventListener('load', () => {
     if (container) {
       const group = container.querySelectorAll('.ufss-slotgroup');
       if (group.length > 0) {
-        chrome.runtime.sendMessage({ msg: 'please check msg, somgthing is available!' });
+        chrome.runtime.sendMessage({ msg: 'please check whole foods page, somgthing is available!' });
       }
     }
-  }, 1000 * 30);
+  },
+  checkInterval: 30 * 1000,
+};
 
-  addStopBtn(timer);
-  console.log('...checking start...');
-});
+export default wholeFoodsUtil;

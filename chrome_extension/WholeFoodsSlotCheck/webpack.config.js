@@ -6,21 +6,21 @@ module.exports = {
   entry: {
     index: './src/index.ts',
     background: './src/background.ts',
-    content: './src/content.ts'
+    content: './src/content.ts',
   },
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
-    umdNamedDefine: true
+    libraryTarget: 'umd',
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 9000
+    port: 9000,
   },
   mode: 'production',
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.svg', '.png', 'jpg', 'gif']
+    extensions: ['.tsx', '.ts', '.js', '.svg', '.png', 'jpg', 'gif'],
   },
   module: {
     rules: [
@@ -34,10 +34,10 @@ module.exports = {
                 loader: 'file-loader',
                 options: {
                   esModule: false,
-                  name: 'static/media/[name].[hash:8].[ext]'
-                }
-              }
-            ]
+                  name: 'static/media/[name].[hash:8].[ext]',
+                },
+              },
+            ],
           },
           {
             test: /\.scss$/,
@@ -47,17 +47,18 @@ module.exports = {
                 loader: 'css-loader',
                 options: {
                   modules: {
-                    localIdentName: '[name]__[local]___[hash:base64:5]'
-                  }
-                }
+                    localIdentName: '[name]__[local]___[hash:base64:5]',
+                  },
+                },
               },
-              'sass-loader'
-            ]
+              'sass-loader',
+            ],
           },
           {
             test: /\.(ts|tsx)$/,
-            loader: 'ts-loader',
-            options: { configFile: 'tsconfig.build.json' }
+            // use: ['ts-loader']
+            exclude: /(node_modules)/,
+            use: 'babel-loader',
           },
           {
             test: /\.(png|jpg|gif)$/i,
@@ -65,14 +66,14 @@ module.exports = {
               {
                 loader: 'url-loader',
                 options: {
-                  limit: 8192
-                }
-              }
-            ]
-          }
-        ]
-      }
-    ]
+                  limit: 8192,
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
-  plugins: [new CopyPlugin(['manifest.json', 'README.md']), new HtmlWebpackPlugin({ template: 'src/index.html' })]
+  plugins: [new CopyPlugin(['manifest.json', 'README.md']), new HtmlWebpackPlugin({ template: 'src/index.html' })],
 };

@@ -1,7 +1,7 @@
 {
-  "name": "没有它就饿死啦",
+  "name": "whole food slots check",
   "version": "1.0.0",
-  "description": "没有它就饿死啦",
+  "description": "whole food slots check",
   "manifest_version": 2,
   "background": {
     "scripts": [
@@ -21,11 +21,11 @@
     }
   ],
   "permissions": [
-    "bookmarks"
+    "storage"
   ],
   "icons": {},
   "browser_action": {
-    "default_title": "没有它就饿死了呀!!!",
+    "default_title": "whole food slots check",
     "default_popup": "index.html"
   }
 }
