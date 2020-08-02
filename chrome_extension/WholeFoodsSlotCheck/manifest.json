@@ -1,0 +1,31 @@
+{
+  "name": "whole food slots check",
+  "version": "1.0.0",
+  "description": "whole food slots check",
+  "manifest_version": 2,
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistant": false
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.amazon.com/gp/buy/shipoptionselect/handlers/display.html?hasWorkingJavascript=1"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "storage"
+  ],
+  "icons": {},
+  "browser_action": {
+    "default_title": "whole food slots check",
+    "default_popup": "index.html"
+  }
+}
