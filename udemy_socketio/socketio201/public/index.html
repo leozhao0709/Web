@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>socketio201</title>
+  </head>
+  <body>
+    123
+    <script src="/test/socket.io.js"></script>
+    <script type="text/javascript">
+      const socket = io('ws://localhost:5000', {
+        path: '/test',
+      });
+      const socket2 = io('ws://localhost:5000/admin');
+
+      socket.on('connect', () => {
+        // console.log(socket.id); // true
+      });
+
+      socket2.on('connect', () => {
+        // console.log(socket2.id);
+      });
+
+      socket.on('join', (msg) => {
+        // eslint-disable-next-line no-console
+        console.log(msg);
+      });
+
+      socket.on('disconnect', (reason) => {
+        console.log(`disconnected, ${reason}`);
+      });
+
+      socket.on('connect_error', (error) => {
+        console.log(`err: ${error}`);
+      });
+    </script>
+  </body>
+</html>
