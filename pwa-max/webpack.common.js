@@ -4,6 +4,7 @@ module.exports = {
   target: 'web',
   entry: {
     index: './src/index.ts',
+    sw: './src/sw.ts',
   },
   output: {
     filename: '[name].js',

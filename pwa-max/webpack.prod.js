@@ -10,7 +10,9 @@ const path = require('path');
 module.exports = merge(commonConfig, {
   mode: 'production',
   output: {
-    filename: '[name].[contentHash:8].js',
+    filename: (pathData) => {
+      return pathData.chunk.name === 'sw' ? '[name].js' : '[name].[contenthash:8].js';
+    },
     libraryTarget: 'umd',
     // publicPath: 'https://cdn.abc.com'
   },
@@ -92,7 +94,7 @@ module.exports = merge(commonConfig, {
       // chunks: ['index', 'vendor', 'common'] // default chunks load all split files
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/main.[contentHash:8].css',
+      filename: 'css/main.[contenthash:8].css',
     }),
   ],
   optimization: {

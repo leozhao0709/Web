@@ -7,7 +7,7 @@ module.exports = merge(commonConfig, {
   mode: 'development',
   devtool: 'inline-source-map',
   output: {
-    filename: '[name].[contentHash:8].js',
+    filename: '[name].js',
     libraryTarget: 'umd',
   },
   devServer: {
