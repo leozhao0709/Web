@@ -1,3 +1,4 @@
-import main from './basic';
+import basicMain from './basic';
+import knnMain from './knn';
 
-main();
+knnMain();
