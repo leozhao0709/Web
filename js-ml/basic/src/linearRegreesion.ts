@@ -26,7 +26,8 @@ const main = async () => {
 
   model.compile({
     loss: tf.losses.meanSquaredError,
-    optimizer: tf.train.sgd(0.05),
+    optimizer: tf.train.adam(0.05),
+    metrics: ['accuracy'],
   });
 
   await model.fit(inputs, labels, {
