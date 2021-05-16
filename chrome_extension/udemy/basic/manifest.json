@@ -22,5 +22,9 @@
     "default_popup": "popup.html"
   },
   // options page(right click your extension icon, you can see "option", when you click it, it goes to this page in a new tab)
-  "options_page": "options.html"
+  "options_page": "options.html",
+  "permissions": ["storage", "alarms", "notifications", "contextMenus", "search", "tabs"],
+  "background": {
+    "service_worker": "background.js"
+  }
 }
