@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Timer Extension",
+  "version": "1.0.0",
+  "description": "Hello Chrome World!",
+  // the icon show at "chrome://extensions" page
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  // The action in chrome tool bar
+  "action": {
+    // tool bar showing icon
+    "default_icon": {
+      "16": "popupIcon.png",
+      "24": "popupIcon.png",
+      "32": "popupIcon.png"
+    },
+    "default_title": "Timer Extension Action Title",
+    // the popup when you click your extension icon
+    "default_popup": "popup.html"
+  },
+  // options page(right click your extension icon, you can see "option", when you click it, it goes to this page in a new tab)
+  "options_page": "options.html"
+}
