@@ -20,22 +20,24 @@ chrome.runtime.onInstalled.addListener((details) => {
   //   parentId: 'contextMenu1',
   //   contexts: ['page', 'selection'],
   // });
+});
 
-  chrome.contextMenus.onClicked.addListener((event) => {
-    console.log(event); // {editable: false, frameId: 0, menuItemId: "contextMenu3", pageUrl: "chrome://extensions/", parentMenuItemId: "contextMenu1", selectionText: "Chrome World!"}
-    // chrome.search.query({
-    //   disposition: 'NEW_TAB',
-    //   text: event.selectionText,
-    // });
+chrome.contextMenus.onClicked.addListener((event) => {
+  console.log(event); // {editable: false, frameId: 0, menuItemId: "contextMenu3", pageUrl: "chrome://extensions/", parentMenuItemId: "contextMenu1", selectionText: "Chrome World!"}
+  // chrome.search.query({
+  //   disposition: 'NEW_TAB',
+  //   text: event.selectionText,
+  // });
 
-    // chrome.tabs.query({ currentWindow: true }, (tabs) => {
-    //   console.log(tabs);
-    // });
+  // chrome.tabs.query({ currentWindow: true }, (tabs) => {
+  //   console.log(tabs);
+  // });
 
-    chrome.tabs.create({
-      url: `https://www.google.com/search?q=${event.selectionText}`,
-    });
-  });
+  // chrome.tabs.create({
+  //   url: `https://www.google.com/search?q=${event.selectionText}`,
+  // });
+
+  chrome.tts.speak('Hello, world.', { lang: 'en-US', rate: 2.0 });
 });
 
 // receive message from foreground
