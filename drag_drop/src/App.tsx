@@ -48,17 +48,15 @@ const App: React.FC = () => {
         let endIndex = draggableListLength;
         // check element after dragEl
         for (let i = dragElIndex + 1; i < draggableListLength; i++) {
-          const nextEl = liRefs[i].current;
+          const nextEl = liRefs[i].current!;
 
           // Todo: element height maybe different
-          if (
-            nextEl &&
-            moveY >= (i - dragElIndex - 0.5) * nextEl.clientHeight!
-          ) {
+          if (moveY >= (i - dragElIndex - 0.5) * nextEl.clientHeight!) {
             nextEl.style.pointerEvents = 'none';
             nextEl.style.transform = `translate3d(0, ${-nextEl.clientHeight}px, 0)`;
             nextEl.style.transition = 'transform 0.2s';
           } else {
+            nextEl.style.transform = `translate3d(0, 0, 0)`;
             endIndex = i;
             break;
           }
@@ -69,15 +67,13 @@ const App: React.FC = () => {
         // drag from down to up
         let endIndex = -1;
         for (let i = dragElIndex - 1; i >= 0; i--) {
-          const lastEl = liRefs[i].current;
+          const lastEl = liRefs[i].current!;
           // Todo: element height maybe different
-          if (
-            lastEl &&
-            -moveY >= (dragElIndex - i - 0.5) * lastEl.clientHeight
-          ) {
+          if (-moveY >= (dragElIndex - i - 0.5) * lastEl.clientHeight) {
             lastEl.style.transform = `translate3d(0, ${lastEl.clientHeight}px, 0)`;
             lastEl.style.transition = `transform 0.2s`;
           } else {
+            lastEl.style.transform = `translate3d(0, 0, 0)`;
             endIndex = i;
             break;
           }
