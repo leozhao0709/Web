@@ -26,9 +26,9 @@ const App: React.FC = () => {
     <div className={styles.App}>
       <h1>10 Richest People</h1>
       <p>Drag and drop the items into their corresponding spots</p>
-      <DraggableList list={richestPeople} onDragItemEnd={onDragItemEnd} />
+      {/* <DraggableList list={richestPeople} onDragItemEnd={onDragItemEnd} /> */}
 
-      {/* <DragList list={richestPeople} /> */}
+      <DragList list={richestPeople} />
     </div>
   );
 };
