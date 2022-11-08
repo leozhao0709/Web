@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './App.module.scss';
 import DraggableList from './components/DraggableList';
-import DragList from './components/DragList';
 
 const App: React.FC = () => {
   const [richestPeople, setRichestPeople] = React.useState([
@@ -28,7 +27,7 @@ const App: React.FC = () => {
       <p>Drag and drop the items into their corresponding spots</p>
       {/* <DraggableList list={richestPeople} onDragItemEnd={onDragItemEnd} /> */}
 
-      <DragList list={richestPeople} />
+      <DraggableList list={richestPeople} />
     </div>
   );
 };
