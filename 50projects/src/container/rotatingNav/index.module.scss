@@ -1,0 +1,70 @@
+$transition: all 0.5s ease-in-out;
+
+.RotatingNav {
+  background-color: #fff;
+  padding: 50px;
+  transition: $transition;
+  transform-origin: left top;
+
+  .container {
+    .img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .navControl {
+    position: fixed;
+    display: flex;
+    left: -100px;
+    top: 0;
+    width: 200px;
+    height: 100px;
+    background-color: #ff7979;
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+    transform-origin: top center;
+    transition: $transition;
+
+    .btn {
+      outline: none;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      color: #fefefe;
+      position: absolute;
+      transform: translateY(-50%);
+
+      &.open {
+        top: 45%;
+        right: 25%;
+      }
+
+      &.close {
+        top: 35%;
+        left: 25%;
+      }
+    }
+  }
+
+  .nav {
+  }
+
+  &.navOpen {
+    transform: rotate(-20deg);
+
+    .navControl {
+      transform: rotate(-70deg);
+
+      // .open {
+      //   // transform-origin: top left;
+      //   // transform: translate(-18px, -5px) rotate(-45deg);
+      // }
+      // .close {
+      //   // transform-origin: top right;
+      //   // transform: translate(18px, -5px) rotate(-45deg);
+      // }
+    }
+  }
+}

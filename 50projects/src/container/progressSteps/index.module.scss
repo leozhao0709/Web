@@ -1,0 +1,74 @@
+$active-color: #3498db;
+$dark-color: #383838;
+$transition: all 0.4s ease-in-out;
+
+.ProgressSteps {
+  .stepsGroup {
+    position: relative;
+
+    .progressBar {
+      position: absolute;
+      height: 3px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: -1;
+      width: 100%;
+      background-color: $dark-color;
+
+      .progress {
+        transition: $transition;
+        background-color: $active-color;
+        height: 3px;
+      }
+    }
+
+    .steps {
+      display: flex;
+      margin: 20px 0;
+      .step {
+        transition: $transition;
+        width: 30px;
+        height: 30px;
+        border: 3px solid $dark-color;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 30px;
+        color: #fff;
+        background-color: #1f1f1f;
+
+        &:first-child {
+          margin-left: 0;
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+
+        &.active {
+          border-color: $active-color;
+        }
+      }
+    }
+  }
+
+  .btnGroup {
+    display: flex;
+    justify-content: center;
+    .btn {
+      margin: 0 30px;
+      padding: 8px 30px;
+      background-color: $active-color;
+      color: #fff;
+      border-radius: 5px;
+      outline: none;
+      border: none;
+      cursor: pointer;
+
+      &:disabled {
+        background-color: $dark-color;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

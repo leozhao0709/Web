@@ -1,0 +1,28 @@
+.HiddenSearch {
+  display: flex;
+  background-color: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+
+  .searchInput {
+    border: none;
+    width: 0;
+    padding: 0;
+    transition: all 0.3s ease-in-out;
+    height: 40px;
+
+    &.active {
+      width: 200px;
+      padding: 10px 5px 10px 10px;
+    }
+  }
+
+  .icon {
+    background-color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+  }
+}
