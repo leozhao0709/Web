@@ -2,6 +2,7 @@ import React from 'react';
 import { RouteObject } from 'react-router-dom';
 import BlurLoading from './container/blurLoading';
 import ExpandingCards from './container/expandingCards';
+import FormInputWave from './container/formInputWave';
 import HiddenSearch from './container/hiddenSearch';
 import IncrementCounter from './container/incrementCounter';
 import KeyCodes from './container/keyCodes';
@@ -18,6 +19,7 @@ const routes: RouteObject[] = [
   { path: '/blur-loading', element: <BlurLoading /> },
   { path: '/scroll-animation', element: <ScrollAnimation /> },
   { path: '/split-landing-page', element: <SplitLandingPage /> },
+  { path: '/form-input-wave', element: <FormInputWave /> },
   { path: '/key-codes', element: <KeyCodes /> },
   { path: '/increment-counter', element: <IncrementCounter /> },
 ];

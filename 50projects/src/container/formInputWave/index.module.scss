@@ -1,0 +1,86 @@
+.FormInputWave {
+  background-color: steelblue;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+
+  .formContainer {
+    background-color: rgba($color: #000000, $alpha: 0.4);
+    padding: 2rem 4rem;
+    border-radius: 5px;
+    margin-top: 10rem;
+    color: #fff;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title {
+      margin: 0;
+    }
+
+    .form {
+      width: 300px;
+      .formControl {
+        position: relative;
+        margin: 2rem 0 4rem;
+
+        .textInput {
+          font-size: 2rem;
+          width: 100%;
+          background: transparent;
+          outline: none;
+          border: none;
+          border-bottom: 2px solid #fff;
+          padding-top: 15px;
+          padding-bottom: 5px;
+
+          & + label {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            font-size: 1.8rem;
+
+            @for $i from 1 through 8 {
+              span:nth-child(#{$i}) {
+                transition: all 0.2s;
+                transition-delay: #{$i * 0.1}s;
+                display: inline-block;
+              }
+            }
+          }
+
+          &:focus + label,
+          &:valid + label {
+            color: lightblue;
+
+            span {
+              transform: translateY(-30px);
+            }
+          }
+        }
+      }
+
+      .submitBtn {
+        width: 100%;
+        background: lightblue;
+        // outline: none;
+        border: none;
+        border-radius: 5px;
+        padding: 1.5rem 2rem;
+        color: #000;
+        margin-bottom: 2rem;
+      }
+    }
+
+    .register {
+      width: 100%;
+      font-size: 1.6rem;
+
+      .registerLink {
+        color: lightblue;
+      }
+    }
+  }
+}

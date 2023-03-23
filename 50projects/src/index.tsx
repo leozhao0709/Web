@@ -5,7 +5,7 @@ import './assets/styles/index.scss';
 import App from './App';
 import { HashRouter } from 'react-router-dom';
 
-const root = createRoot(document.querySelector('#root') as Element);
+const root = createRoot(document.querySelector('#app') as Element);
 root.render(
   <HashRouter>
     <App />
