@@ -1,9 +1,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "sourceMap": false,
-    "declaration": true
+    "rootDir": "src"
   },
-  "exclude": ["node_modules", "tests", "**/*spec.ts"],
-  "include": ["src"]
+  // "references": [
+  //   { "path": "../../otherProject/tsconfig.build.json" }
+  // ], // reference is not inherited: https://github.com/microsoft/TypeScript/issues/27098, remember also adding the reference project to nodemon watch config
+  "exclude": ["tests"]
 }

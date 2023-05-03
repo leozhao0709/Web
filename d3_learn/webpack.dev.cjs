@@ -1,20 +1,21 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { merge } = require('webpack-merge');
-const commonConfig = require('./webpack.common');
+const commonConfig = require('./webpack.common.cjs');
+const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = merge(commonConfig, {
   mode: 'development',
-  devtool: 'inline-source-map',
+  devtool: 'cheap-module-source-map',
   output: {
-    filename: '[name].[contentHash:8].js',
-    libraryTarget: 'umd',
+    filename: '[name].js',
   },
+  target: 'web',
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    static: [path.join(process.cwd(), 'public')],
     compress: true,
     host: 'localhost',
-    port: 8000,
+    port: 9001,
+    liveReload: true,
     // // 设置代理
     // proxy: {
     //   // 将本地 /api/xxx 代理到 localhost:3000/api/xxx
@@ -26,24 +27,28 @@ module.exports = merge(commonConfig, {
     //     pathRewrite: {
     //       '/api2': '',
     //     },
+    //   // resolve cors problem
+    //    changeOrigin: true,
     //   },
     // },
   },
   module: {
     rules: [
       {
-        test: /\.svg$/,
-        use: ['@svgr/webpack'],
+        test: /\.(js|jsx)$/,
+        enforce: 'pre',
+        use: ['source-map-loader'],
       },
       {
-        test: /\.scss$/,
+        test: /\.s?css$/,
         use: [
           'style-loader',
           {
             loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: '[name]__[local]___[hash:base64:5]',
+                auto: (resourcePath) => !resourcePath.includes('node_modules'),
+                localIdentName: '[name]__[local]__[hash:base64:5]',
               },
             },
           },
@@ -62,18 +67,10 @@ module.exports = merge(commonConfig, {
           },
         ],
       },
-      {
-        test: /\.(png|jpg|jpeg|gif)$/i,
-        use: [
-          {
-            loader: 'url-loader',
-          },
-        ],
-      },
     ],
   },
   plugins: [
+    new ReactRefreshPlugin(),
     // new CopyPlugin({ patterns: [{ from: '', to: '' }] }),
-    new HtmlWebpackPlugin({ template: 'src/index.html' }),
   ],
 });
