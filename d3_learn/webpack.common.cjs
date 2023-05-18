@@ -30,17 +30,17 @@ module.exports = {
   },
   module: {
     rules: [
-      // {
-      //   test: /\.(ts|tsx)$/,
-      //   exclude: /(node_modules|tests)/,
-      //   use: 'babel-loader?cacheDirectory',
-      // },
       {
         test: /\.(ts|tsx)$/,
         exclude: /(node_modules|tests)/,
-        loader: 'ts-loader',
-        options: { configFile: 'tsconfig.build.json', projectReferences: true },
+        use: 'babel-loader?cacheDirectory',
       },
+      // {
+      //   test: /\.(ts|tsx)$/,
+      //   exclude: /(node_modules|tests)/,
+      //   loader: 'ts-loader',
+      //   options: { configFile: 'tsconfig.build.json', projectReferences: true },
+      // },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/i,
         type: 'asset',

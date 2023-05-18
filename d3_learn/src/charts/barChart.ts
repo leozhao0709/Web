@@ -5,6 +5,8 @@ import { axisBottom, axisLeft } from 'd3-axis';
 import { transition } from 'd3-transition';
 import React from 'react';
 import { isEqual } from 'lodash-es';
+import tippy, { followCursor } from 'tippy.js';
+import 'tippy.js/dist/tippy.css';
 
 const defaultOption = {
   width: 600,
@@ -26,7 +28,7 @@ export const useBarChart = (
 ) => {
   const mergedOption = { ...defaultOption, ...option };
   const optionRef = React.useRef(mergedOption);
-  const graphRef = React.useRef<Selection<
+  const barsRef = React.useRef<Selection<
     SVGGElement,
     unknown,
     null,
@@ -69,19 +71,22 @@ export const useBarChart = (
       .attr('width', width)
       .attr('height', height);
 
-    graphRef.current = svg
+    const group = svg
       .append('g')
       .attr('transform', `translate(${paddingLeft}, ${paddingTop})`);
 
+    // barsref
+    barsRef.current = group.append('g');
+
     // axis
-    xAxisGroupRef.current = graphRef.current
+    xAxisGroupRef.current = group
       .append('g')
       .attr('transform', `translate(0, ${chartHeight})`);
 
-    yAxisGroupRef.current = graphRef.current.append('g');
+    yAxisGroupRef.current = group.append('g');
 
     // label
-    graphRef.current
+    group
       .append('text')
       .attr('x', chartWidth / 2)
       .attr('y', chartHeight + 50)
@@ -89,7 +94,7 @@ export const useBarChart = (
       .attr('text-anchor', 'middle')
       .text('This is X label');
 
-    graphRef.current
+    group
       .append('text')
       .attr('x', -chartHeight / 2)
       .attr('y', -40)
@@ -103,7 +108,7 @@ export const useBarChart = (
     // related to data
     if (
       ref.current === null ||
-      graphRef.current === null ||
+      barsRef.current === null ||
       xAxisGroupRef.current === null ||
       yAxisGroupRef.current === null
     ) {
@@ -123,45 +128,66 @@ export const useBarChart = (
     // transition
     const t = transition().duration(200);
 
-    const bars = graphRef.current
-      .selectAll<SVGRectElement, BarChartDataType>('rect')
-      .data(data);
+    barsRef.current
+      .selectAll('g')
+      .data(data)
+      .join(
+        (enter) => {
+          const group = enter
+            .append('g')
+            .attr('data-tippy-content', (d) => d.name)
+            .call((sel) =>
+              tippy(sel.nodes(), {
+                duration: 0,
+                // followCursor: true,
+                plugins: [followCursor],
+                trigger: 'mouseenter',
+              })
+            );
+          group
+            .append('rect')
+            .attr('width', xScale.bandwidth())
+            .attr('y', chartHeight)
+            .attr('x', (d) => xScale(d.name)!)
+            .attr('fill', barColor)
+            .transition(t)
+            .attr('height', (d) => chartHeight - yScale(d.value))
+            .attr('y', (d) => {
+              return yScale(d.value);
+            });
+          group
+            .append('text')
+            .attr('class', 'label')
+            .attr('text-anchor', 'middle')
+            .attr('x', (d) => xScale(d.name)! + xScale.bandwidth() / 2)
+            .attr('y', chartHeight)
+            .attr('fill', '#fff')
+            .transition(t)
+            .attr('y', (d) => yScale(d.value) + 20)
+            .text((d) => d.value);
 
-    bars.exit().remove();
+          return group;
+        },
+        (update) => {
+          update
+            .selectAll('rect')
+            .data((d) => [d]) // update data
+            .transition(t)
+            .attr('height', (d) => chartHeight - yScale(d.value))
+            .attr('y', (d) => {
+              return yScale(d.value);
+            });
 
-    bars
-      .enter()
-      .append('rect')
-      .attr('width', xScale.bandwidth())
-      .attr('y', chartHeight)
-      .attr('x', (d) => xScale(d.name)!)
-      .merge(bars)
-      .transition(t)
-      .attr('height', (d) => chartHeight - yScale(d.value))
-      .attr('y', (d) => {
-        return yScale(d.value);
-      })
-      .attr('fill', barColor);
+          update
+            .selectAll('text')
+            .data((d) => [d])
+            .transition(t)
+            .attr('y', (d) => yScale(d.value) + 20)
+            .text((d) => d.value);
 
-    // labels
-    const labels = graphRef.current
-      .selectAll<SVGTextElement, BarChartDataType>('.label')
-      .data(data);
-
-    labels.exit().remove();
-
-    labels
-      .enter()
-      .append('text')
-      .attr('class', 'label')
-      .attr('text-anchor', 'middle')
-      .attr('x', (d) => xScale(d.name)! + xScale.bandwidth() / 2)
-      .attr('y', chartHeight)
-      .attr('fill', '#fff')
-      .merge(labels)
-      .transition(t)
-      .attr('y', (d) => yScale(d.value) + 20)
-      .text((d) => d.value);
+          return update;
+        }
+      );
 
     // axis
     const xAxis = axisBottom(xScale);
@@ -191,5 +217,5 @@ export const useBarChart = (
 
   React.useEffect(() => {
     renderData();
-  }, [data, ref, graphRef, xAxisGroupRef, yAxisGroupRef, mergedOption]);
+  }, [data, ref, barsRef, xAxisGroupRef, yAxisGroupRef, mergedOption]);
 };

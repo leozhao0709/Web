@@ -44,6 +44,7 @@ specifiers:
   d3-scale-chromatic: ^3.0.0
   d3-selection: ^3.0.0
   d3-shape: ^3.2.0
+  d3-tip: ^0.9.1
   d3-transition: ^3.0.1
   eslint: ^8.39.0
   eslint-config-prettier: ^8.8.0
@@ -71,6 +72,7 @@ specifiers:
   source-map-loader: ^4.0.1
   style-loader: ^3.3.2
   terser-webpack-plugin: ^5.3.7
+  tippy.js: ^6.3.7
   ts-jest: ^29.1.0
   ts-loader: ^9.4.2
   ts-node: ^10.9.1
@@ -96,11 +98,13 @@ dependencies:
   d3-scale-chromatic: registry.npmmirror.com/d3-scale-chromatic/3.0.0
   d3-selection: registry.npmmirror.com/d3-selection/3.0.0
   d3-shape: registry.npmmirror.com/d3-shape/3.2.0
+  d3-tip: registry.npmmirror.com/d3-tip/0.9.1
   d3-transition: registry.npmmirror.com/d3-transition/3.0.1_d3-selection@3.0.0
   immer: registry.npmmirror.com/immer/10.0.1
   lodash-es: registry.npmmirror.com/lodash-es/4.17.21
   react: registry.npmmirror.com/react/18.2.0
   react-dom: registry.npmmirror.com/react-dom/18.2.0_react@18.2.0
+  tippy.js: registry.npmmirror.com/tippy.js/6.3.7
 
 devDependencies:
   '@babel/core': registry.npmmirror.com/@babel/core/7.21.5
@@ -2860,6 +2864,12 @@ packages:
       webpack-dev-server: registry.npmmirror.com/webpack-dev-server/4.13.3_fzmrcwrabiacitgq553x53darm
     dev: true
 
+  registry.npmmirror.com/@popperjs/core/2.11.7:
+    resolution: {integrity: sha512-Cr4OjIkipTtcXKjAsm8agyleBuDHvxzeBoa1v543lbv1YaIwQjESsVcmjiWiPEbC1FIeHOG/Op9kdCmAmiS3Kw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@popperjs/core/-/core-2.11.7.tgz}
+    name: '@popperjs/core'
+    version: 2.11.7
+    dev: false
+
   registry.npmmirror.com/@sheerun/mutationobserver-shim/0.3.3:
     resolution: {integrity: sha512-DetpxZw1fzPD5xUBrIAoplLChO2VB8DlL5Gg+I1IR9b2wPqYIca2WSUxL5g1vLeR4MsQq1NeWriXAVffV+U1Fw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@sheerun/mutationobserver-shim/-/mutationobserver-shim-0.3.3.tgz}
     name: '@sheerun/mutationobserver-shim'
@@ -5386,6 +5396,12 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
+  registry.npmmirror.com/d3-collection/1.0.7:
+    resolution: {integrity: sha512-ii0/r5f4sjKNTfh84Di+DpztYwqKhEyUlKoPrzUFfeSkWxjW49xU2QzO9qrPrNkpdI0XJkfzvmTu8V2Zylln6A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/d3-collection/-/d3-collection-1.0.7.tgz}
+    name: d3-collection
+    version: 1.0.7
+    dev: false
+
   registry.npmmirror.com/d3-color/3.1.0:
     resolution: {integrity: sha512-zg/chbXyeBtMQ1LbD/WSoW2DpC3I0mpmPdW+ynRTj/x2DAWYrIY7qeZIHidozwV24m4iavr15lNwIwLxRmOxhA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/d3-color/-/d3-color-3.1.0.tgz}
     name: d3-color
@@ -5453,6 +5469,12 @@ packages:
       d3-time-format: registry.npmmirror.com/d3-time-format/4.1.0
     dev: false
 
+  registry.npmmirror.com/d3-selection/1.4.2:
+    resolution: {integrity: sha512-SJ0BqYihzOjDnnlfyeHT0e30k0K1+5sR3d5fNueCNeuhZTnGw4M4o8mqJchSwgKMXCNFo+e2VTChiSJ0vYtXkg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/d3-selection/-/d3-selection-1.4.2.tgz}
+    name: d3-selection
+    version: 1.4.2
+    dev: false
+
   registry.npmmirror.com/d3-selection/3.0.0:
     resolution: {integrity: sha512-fmTRWbNMmsmWq6xJV8D19U/gw/bwrHfNXxrIN+HfZgnzqTHp9jOmKMhsTUjXOJnZOdZY9Q28y4yebKzqDKlxlQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/d3-selection/-/d3-selection-3.0.0.tgz}
     name: d3-selection
@@ -5492,6 +5514,16 @@ packages:
     name: d3-timer
     version: 3.0.1
     engines: {node: '>=12'}
+    dev: false
+
+  registry.npmmirror.com/d3-tip/0.9.1:
+    resolution: {integrity: sha512-EVBfG9d+HnjIoyVXfhpytWxlF59JaobwizqMX9EBXtsFmJytjwHeYiUs74ldHQjE7S9vzfKTx2LCtvUrIbuFYg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/d3-tip/-/d3-tip-0.9.1.tgz}
+    name: d3-tip
+    version: 0.9.1
+    engines: {node: '>=4.2.6'}
+    dependencies:
+      d3-collection: registry.npmmirror.com/d3-collection/1.0.7
+      d3-selection: registry.npmmirror.com/d3-selection/1.4.2
     dev: false
 
   registry.npmmirror.com/d3-transition/3.0.1_d3-selection@3.0.0:
@@ -12213,6 +12245,14 @@ packages:
     name: thunky
     version: 1.1.0
     dev: true
+
+  registry.npmmirror.com/tippy.js/6.3.7:
+    resolution: {integrity: sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/tippy.js/-/tippy.js-6.3.7.tgz}
+    name: tippy.js
+    version: 6.3.7
+    dependencies:
+      '@popperjs/core': registry.npmmirror.com/@popperjs/core/2.11.7
+    dev: false
 
   registry.npmmirror.com/tmpl/1.0.5:
     resolution: {integrity: sha512-3f0uOEAQwIqGuWW2MVzYg8fV/QNnc/IpuJNG837rLuczAaLVHslWHZQj4IGiEl5Hs3kkbhwL9Ab7Hrsmuj+Smw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/tmpl/-/tmpl-1.0.5.tgz}
