@@ -6,19 +6,19 @@ const App: React.FC = () => {
   const [imgSrc, setImgSrc] = React.useState(
     new Array(15)
       .fill(undefined)
-      .map((_, index) => `https://picsum.photos/360/480?radom=${index}`)
+      .map((_, index) => `https://picsum.photos/360/380?radom=${index}`)
   );
 
   const loadMore = () => {
     const moreSrc = new Array(15)
       .fill(undefined)
-      .map((_, index) => `https://picsum.photos/360/480?radom=${index}`);
+      .map((_, index) => `https://picsum.photos/360/380?radom=${index}`);
 
     setImgSrc([...imgSrc, ...moreSrc]);
   };
 
   const getHeight = React.useCallback((index: number) => {
-    return (index % 5) * 50 + 300;
+    return (index % 5) * 50 + 200;
   }, []);
 
   return (
@@ -26,7 +26,7 @@ const App: React.FC = () => {
       <Waterfall
         className={styles.waterFall}
         width={1000}
-        columnCount={3}
+        columnCount={4}
         itemSpacing={5}
         lineSpacing={5}
       >
