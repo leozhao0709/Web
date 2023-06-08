@@ -11,7 +11,7 @@ Note:
 
 - The default auto reload check duration is 30 seconds. But you can change this time by select the `duration of reload` selection.
 
-- By default, each 30 seconds, it will reload the checkout page automatically and check if there is any slots available today for you. If there is any slots for delivering, then it will show an alert for you as long as your chome is open.
+- By default, each 30 seconds, it will reload the checkout page automatically and check if there is any slots available today for you. If there is any slots for delivering, then it will show an alert for you as long as your chrome is open.
 
 - When the alert showing, just go to checkout page and try to place your order. One thing to remember, sometimes, even though the amazon whole foods page showing the available slots, if you click place order, it still won't let you place order. But as long as there is any avaiable slots, you can have a try to place your order.
 
